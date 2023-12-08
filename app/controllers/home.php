@@ -1,6 +1,6 @@
 <?php 
 
-use \app\core\Controller;
+use \app\core\{Controller};
 use \app\models\{User};
 
 class Home extends Controller {

@@ -12,6 +12,10 @@ class User {
             'name' => 'Hanah',
             'age' => 19
         ],
+        [
+            'name' => 'Gardo',
+            'age' => 20
+        ],
     ];
 
     public static function getUsers(): array
