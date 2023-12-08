@@ -1,10 +1,12 @@
 <?php 
 
-class User {
-    public $name = 'Rizky';
+namespace app\models;
 
-    public function getUser()
+class User {
+    private static string $name = 'Warvil';
+
+    public static function getUser(): string
     {
-        return $this->name;
+        return self::$name;
     }
 }

@@ -1,12 +1,17 @@
 <?php 
 
+namespace app\core;
+
 class App {
-    protected $controller = 'home';
+    protected $controller = 'Home';
     protected $method = 'index';
     protected $params = [];
+    protected $models = [];
 
     public function __construct()
     {
+        $this->controller = strtolower($this->controller);
+
         try {
             $url = $this->parseURL();
     
@@ -14,8 +19,8 @@ class App {
             $this->setMethod($url);
             $this->setParams($url);
 
-            call_user_func_array([$this->controller, $this->method], $this->params);
-        } catch (Exception $e) {
+            call_user_func_array([$this->controller, $this->method], [$this->params]);
+        } catch (\Exception $e) {
             echo 'Page not found: <br/>next>> ' . $e->getMessage();
         }
     }
@@ -25,7 +30,7 @@ class App {
         if (!$url) $url = [$this->controller];
     
         if (!file_exists('app/controllers/' . $url[0] . '.php'))
-            throw new Exception('Controller not found: ' . $url[0]);
+            throw new \Exception('Controller not found: ' . $url[0]);
     
         $this->controller = $url[0];
         unset($url[0]);
@@ -33,7 +38,7 @@ class App {
         require_once 'app/controllers/' . $this->controller . '.php';
     
         if (!class_exists($this->controller)) 
-            throw new Exception('Class does not exist: ' . $this->controller);
+            throw new \Exception('Class does not exist: ' . $this->controller);
     
         $this->controller = new $this->controller;
     }
@@ -44,7 +49,7 @@ class App {
         if (!isset($url[1])) return;
 
         if (!method_exists($this->controller, $url[1]))
-            throw new Exception('Method not found: ' . $url[1]);
+            throw new \Exception('Method not found: ' . $url[1]);
 
         $this->method = $url[1];
         unset($url[1]);

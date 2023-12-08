@@ -2,7 +2,7 @@
 
 function bootstrap() {
     require_once 'app/init.php';
-    new App();
+    new \app\core\App();
 }
 
 bootstrap();

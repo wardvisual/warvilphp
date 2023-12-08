@@ -1,10 +1,20 @@
 <?php 
 
+use \app\core\{Controller};
+use \app\models\{User};
+
+require_once 'app/models/User.php';
+
 class Home extends Controller {
     public function index()
     {
-        // $user = $this->model('User')->getUser();
-        // $user->name = 'Edward';
-        $this->view('home/index', ['age' => 32]);
+        $this->view('home/index', ['data' => User::getUser()]);
+    }
+
+    private function getUsers()
+    {
+        $user = User::getUser();
+
+        return $user;
     }
 }
