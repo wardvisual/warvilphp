@@ -22,4 +22,9 @@ class User {
     {
         return self::$users;
     }
+
+    public static function createUser($user): void
+    {
+        array_push(self::$users, $user);
+    }
 }

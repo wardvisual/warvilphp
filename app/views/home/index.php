@@ -6,4 +6,5 @@
             <li><?= $user['age'] ?></li>
         </ul>
     <?php endforeach; ?>
+</form>
 </div>

@@ -6,7 +6,6 @@ class App {
     protected $controller = 'Home';
     protected $method = 'index';
     protected $params = [];
-    protected $models = [];
 
     public function __construct()
     {
