@@ -5,5 +5,5 @@ class Utils {
     {
         header('Location: ' . $url);
         exit;
-    }
+    } 
 }
