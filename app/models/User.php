@@ -3,10 +3,19 @@
 namespace app\models;
 
 class User {
-    private static string $name = 'Warvil';
+    private static array $users = [
+        [
+            'name' => 'Edward',
+            'age' => 20
+        ],
+        [
+            'name' => 'Hanah',
+            'age' => 19
+        ],
+    ];
 
-    public static function getUser(): string
+    public static function getUsers(): array
     {
-        return self::$name;
+        return self::$users;
     }
 }

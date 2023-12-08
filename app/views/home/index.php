@@ -1,4 +1,9 @@
 <div>
     <h1>Home Page</h1>
-    <h3>Hello, <?php print_r($data); ?></h3>
+    <?php foreach($data['users'] as $user): ?>
+        <ul>
+            <li><?= $user['name'] ?></li>
+            <li><?= $user['age'] ?></li>
+        </ul>
+    <?php endforeach; ?>
 </div>
