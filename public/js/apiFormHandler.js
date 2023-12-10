@@ -62,15 +62,15 @@ class ApiFormHandler {
   setup({ onSuccess, onError }) {
     const formElement = this.getFormElement();
 
-    formElement.addEventListener("submit", (event) => {
+    formElement.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const response = this.submitForm();
+      const response = await this.submitForm();
 
       if (response) {
-        onSuccess(response);
+        onSuccess(JSON.stringify(response));
       } else {
-        onError(response);
+        onError(JSON.stringify(response));
       }
     });
   }
