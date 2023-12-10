@@ -10,7 +10,7 @@
 <body>
     <form>
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required />
+        <input type="text" name="name" id="name" required /> <br />
 
         <label for="age">Age:</label>
         <input type="number" name="age" id="age" required />

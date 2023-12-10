@@ -26,12 +26,12 @@ function createFormApi({
   }
 
   async function submitForm() {
-    const formData = getFormDataFromForm();
+    const formData = getFormData();
     const result = await sendFormData(formData);
     return result;
   }
 
-  function getFormDataFromForm() {
+  function getFormData() {
     const formData = new FormData();
     const formElement = getFormElement();
 
