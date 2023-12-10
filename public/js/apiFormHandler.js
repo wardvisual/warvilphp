@@ -1,19 +1,27 @@
 class ApiFormHandler {
   baseUrl = "/mvc";
-  requestUrl = "";
 
-  constructor({ formId, endpoint, onSuccess = null, onError = null }) {
+  constructor({
+    formId,
+    endpoint,
+    method = "POST",
+    data = {},
+    onSuccess = null,
+    onError = null,
+  }) {
     this.formId = formId;
     this.endpoint = endpoint;
+    this.method = method;
+    this.data = data;
     this.requestUrl = `${this.baseUrl}/${this.endpoint}`;
 
-    this.setup();
+    this.setup({ onSuccess, onError });
   }
 
   async sendFormData(formData) {
     try {
       const response = await fetch(this.requestUrl, {
-        method: "POST",
+        method: this.method,
         body: formData,
       });
 
@@ -28,14 +36,10 @@ class ApiFormHandler {
   }
 
   async submitForm() {
-    try {
-      const formData = this.getFormDataFromForm();
-      const result = await this.sendFormData(formData);
+    const formData = this.getFormDataFromForm();
+    const result = await this.sendFormData(formData);
 
-      console.log(result);
-    } catch (error) {
-      console.error({ error });
-    }
+    return result;
   }
 
   getFormDataFromForm() {
@@ -55,12 +59,19 @@ class ApiFormHandler {
     return document.getElementById(this.formId);
   }
 
-  setup() {
+  setup({ onSuccess, onError }) {
     const formElement = this.getFormElement();
 
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
-      this.submitForm();
+
+      const response = this.submitForm();
+
+      if (response) {
+        onSuccess(response);
+      } else {
+        onError(response);
+      }
     });
   }
 }

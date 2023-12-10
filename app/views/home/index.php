@@ -15,7 +15,7 @@
         <label for="age">Age:</label>
         <input type="number" name="age" id="age" required />
 
-        <button type="submit" onclick="submitForm()">Submit</button>
+        <button type="submit">Submit</button>
     </form>
 
     <script src="public/js/apiFormHandler.js"></script>
@@ -26,22 +26,23 @@
             formId: 'registrationForm'
         }
 
-        const apiFormHandler = new ApiFormHandler(props);
+        // const apiFormHandler = new ApiFormHandler(props);
 
-        ApiForm({
+        new ApiFormHandler({
+            method: 'POST',
             endpoint: 'home/store',
             formId: 'registrationForm',
             onSuccess: (response) => {
-                console.log(response);
+                alert(response);
             },
             onError: (error) => {
                 console.log(error);
             }
         })
 
-        const submitForm = async () => {
-            await apiFormHandler.submitForm();
-        }
+        // const submitForm = async () => {
+        //     await apiFormHandler.submitForm();
+        // }
     </script>
 
 </body>
