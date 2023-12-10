@@ -5,6 +5,12 @@ use \app\models\{User};
 
 class Home extends Controller
 {
+    public function __construct()
+    {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+    }
 
     public function index()
     {
@@ -17,11 +23,6 @@ class Home extends Controller
 
     public function store()
     {
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type');
-        header('Content-Type: application/json');
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $age = $_POST['age'];
@@ -35,24 +36,9 @@ class Home extends Controller
 
             echo json_encode(['status' => 'success', 'message' => 'User created successfully', 'data' => $payload]);
         } else {
-            // Handle invalid request method (optional)
             echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
         }
 
-        exit(); // Ensure nothing else is sent in the response
+        exit();
     }
-
-
-    // create store logic
-    // public function store()
-    // {
-    //     $payload = [
-    //         'name' => 'haha',
-    //         'age' => 32,
-    //     ];
-
-    //     User::createUser($payload);
-
-    //     header('Location: /');
-    // }
 }
