@@ -1,21 +1,14 @@
 class ApiFormHandler {
   baseUrl = "/mvc";
 
-  constructor({
-    formId,
-    endpoint,
-    method = "POST",
-    data = {},
-    onSuccess = null,
-    onError = null,
-  }) {
+  constructor({ formId, url, method = "POST", data = {}, actions = {} }) {
     this.formId = formId;
-    this.endpoint = endpoint;
+    this.url = url;
     this.method = method;
     this.data = data;
-    this.requestUrl = `${this.baseUrl}/${this.endpoint}`;
+    this.requestUrl = `${this.baseUrl}/${this.url}`;
 
-    this.setup({ onSuccess, onError });
+    this.setup(actions);
   }
 
   async sendFormData(formData) {
@@ -59,7 +52,7 @@ class ApiFormHandler {
     return document.getElementById(this.formId);
   }
 
-  setup({ onSuccess, onError }) {
+  setup(action) {
     const formElement = this.getFormElement();
 
     formElement.addEventListener("submit", async (event) => {
@@ -68,9 +61,9 @@ class ApiFormHandler {
       const response = await this.submitForm();
 
       if (response) {
-        onSuccess(JSON.stringify(response));
+        action.onSuccess(JSON.stringify(response));
       } else {
-        onError(JSON.stringify(response));
+        action.onError(JSON.stringify(response));
       }
     });
   }

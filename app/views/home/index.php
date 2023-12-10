@@ -30,13 +30,15 @@
 
         new ApiFormHandler({
             method: 'POST',
-            endpoint: 'home/store',
+            url: 'home/store',
             formId: 'registrationForm',
-            onSuccess: (response) => {
-                alert(response);
-            },
-            onError: (error) => {
-                console.log(error);
+            actions: {
+                onSuccess: (response) => {
+                    alert(response);
+                },
+                onError: (error) => {
+                    console.log(error);
+                }
             }
         })
 
