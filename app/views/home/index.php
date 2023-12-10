@@ -4,41 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ward</title>
 </head>
 
 <body>
-    <form id="myForm">
+    <form id="registrationForm">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name" required />
 
         <label for="age">Age:</label>
         <input type="number" name="age" id="age" required />
 
-        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="submit" onclick="submitForm()">Submit</button>
     </form>
 
+    <script src="public/js/apiFormHandler.js"></script>
+
     <script>
-        var submitForm = async () => {
-            var formData = new FormData();
+        const props = {
+            endpoint: 'home/store',
+            formId: 'registrationForm'
+        }
 
-            // Get values from input fields
-            var nameValue = document.getElementById("name").value;
-            var ageValue = document.getElementById("age").value;
+        const apiFormHandler = new ApiFormHandler(props);
 
-            // Append form data
-            formData.append('name', nameValue);
-            formData.append('age', ageValue);
+        ApiForm({
+            endpoint: 'home/store',
+            formId: 'registrationForm',
+            onSuccess: (response) => {
+                console.log(response);
+            },
+            onError: (error) => {
+                console.log(error);
+            }
+        })
 
-
-            var response = await fetch("/mvc/home/store", {
-                method: "POST",
-                body: formData,
-            });
-
-            var result = await response.json();
-
-            console.log(result);
+        const submitForm = async () => {
+            await apiFormHandler.submitForm();
         }
     </script>
 
