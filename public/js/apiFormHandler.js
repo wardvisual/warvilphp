@@ -1,20 +1,17 @@
-class ApiFormHandler {
-  baseUrl = "/mvc";
+function createFormApi({
+  formId,
+  url,
+  method = "POST",
+  data = {},
+  actions = {},
+}) {
+  const baseUrl = "/mvc";
+  const requestUrl = `${baseUrl}/${url}`;
 
-  constructor({ formId, url, method = "POST", data = {}, actions = {} }) {
-    this.formId = formId;
-    this.url = url;
-    this.method = method;
-    this.data = data;
-    this.requestUrl = `${this.baseUrl}/${this.url}`;
-
-    this.setup(actions);
-  }
-
-  async sendFormData(formData) {
+  async function sendFormData(formData) {
     try {
-      const response = await fetch(this.requestUrl, {
-        method: this.method,
+      const response = await fetch(requestUrl, {
+        method: method,
         body: formData,
       });
 
@@ -28,16 +25,15 @@ class ApiFormHandler {
     }
   }
 
-  async submitForm() {
-    const formData = this.getFormDataFromForm();
-    const result = await this.sendFormData(formData);
-
+  async function submitForm() {
+    const formData = getFormDataFromForm();
+    const result = await sendFormData(formData);
     return result;
   }
 
-  getFormDataFromForm() {
+  function getFormDataFromForm() {
     const formData = new FormData();
-    const formElement = this.getFormElement();
+    const formElement = getFormElement();
 
     for (const element of formElement.elements) {
       if (element.name) {
@@ -48,17 +44,21 @@ class ApiFormHandler {
     return formData;
   }
 
-  getFormElement() {
-    return document.getElementById(this.formId);
+  function getFormElement() {
+    if (formId) {
+      return document.getElementById(formId);
+    } else {
+      return document.querySelector("form");
+    }
   }
 
-  setup(action) {
-    const formElement = this.getFormElement();
+  function listen(action) {
+    const formElement = getFormElement();
 
     formElement.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const response = await this.submitForm();
+      const response = await submitForm();
 
       if (response) {
         action.onSuccess(JSON.stringify(response));
@@ -67,4 +67,6 @@ class ApiFormHandler {
       }
     });
   }
+
+  listen(actions);
 }

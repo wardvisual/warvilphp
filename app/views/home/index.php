@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form id="registrationForm">
+    <form>
         <label for="name">Name:</label>
         <input type="text" name="name" id="name" required />
 
@@ -21,17 +21,9 @@
     <script src="public/js/apiFormHandler.js"></script>
 
     <script>
-        const props = {
-            endpoint: 'home/store',
-            formId: 'registrationForm'
-        }
-
-        // const apiFormHandler = new ApiFormHandler(props);
-
-        new ApiFormHandler({
+        createFormApi({
             method: 'POST',
             url: 'home/store',
-            formId: 'registrationForm',
             actions: {
                 onSuccess: (response) => {
                     alert(response);
@@ -41,10 +33,6 @@
                 }
             }
         })
-
-        // const submitForm = async () => {
-        //     await apiFormHandler.submitForm();
-        // }
     </script>
 
 </body>
