@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 use \app\core\{Controller};
 use \app\models\{User};
 
-class Home extends Controller {
+class Home extends Controller
+{
 
     public function index()
     {
@@ -14,17 +15,49 @@ class Home extends Controller {
         $this->view('home/index', $payload);
     }
 
-    // create store logic
     public function store()
     {
-        $payload = [
-            'name' => 'haha',
-            'age' => 32,
-        ];
+        // Allow requests from any origin (you might want to restrict this in production)
+        header('Access-Control-Allow-Origin: *');
 
-        User::createUser($payload);
+        // Allow the following methods
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
 
-        header('Location: /');
+        // Allow the following headers
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+            $name = $_POST['name'];
+            $age = $_POST['age'];
+
+            $payload = [
+                'name' => $name,
+                'age' => $age,
+            ];
+
+            $result = \app\models\User::createUser($payload);
+
+            echo json_encode(['status' => 'success', 'message' => 'User created successfully']);
+        } else {
+            // Handle invalid request method (optional)
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+        }
+
+        exit(); // Ensure nothing else is sent in the response
     }
 
+
+    // create store logic
+    // public function store()
+    // {
+    //     $payload = [
+    //         'name' => 'haha',
+    //         'age' => 32,
+    //     ];
+
+    //     User::createUser($payload);
+
+    //     header('Location: /');
+    // }
 }
