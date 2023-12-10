@@ -13,7 +13,7 @@
         <input type="text" name="name" id="name" required />
 
         <label for="age">Age:</label>
-        <input type="text" name="age" id="age" required />
+        <input type="number" name="age" id="age" required />
 
         <button type="button" onclick="submitForm()">Submit</button>
     </form>
@@ -22,20 +22,23 @@
         var submitForm = async () => {
             var formData = new FormData();
 
-            // Append form data
-            formData.append('name', 'ed');
-            formData.append('age', 32);
+            // Get values from input fields
+            var nameValue = document.getElementById("name").value;
+            var ageValue = document.getElementById("age").value;
 
-            var response = await fetch("http://localhost/mvc/home/store", {
+            // Append form data
+            formData.append('name', nameValue);
+            formData.append('age', ageValue);
+
+
+            var response = await fetch("/mvc/home/store", {
                 method: "POST",
                 body: formData,
             });
 
             var result = await response.json();
 
-            console.log({
-                result
-            });
+            console.log(result);
         }
     </script>
 

@@ -26,8 +26,14 @@ class Home extends Controller
         // Allow the following headers
         header('Access-Control-Allow-Headers: Content-Type');
 
+        header('Content-Type: application/json');
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            header('Content-Type: application/json');
+            $input = file_get_contents('php://input');
+
+            // Attempt to decode as JSON
+            $jsonData = json_decode($input, true);
+
             $name = $_POST['name'];
             $age = $_POST['age'];
 
@@ -38,7 +44,7 @@ class Home extends Controller
 
             $result = \app\models\User::createUser($payload);
 
-            echo json_encode(['status' => 'success', 'message' => 'User created successfully']);
+            echo json_encode(['status' => 'success', 'message' => 'User created successfully', 'data' => $_POST]);
         } else {
             // Handle invalid request method (optional)
             echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
