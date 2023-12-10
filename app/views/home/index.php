@@ -15,7 +15,7 @@
         <label for="age">Age:</label>
         <input type="number" name="age" id="age" required />
 
-        <button type="submit">Submit</button>
+        <button>Submit</button>
     </form>
 
     <script src="public/js/apiFormHandler.js"></script>
