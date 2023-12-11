@@ -1,6 +1,13 @@
 {
   "name": "WarvilFramework",
-  "version": "1.0.0",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0,
+    "build": 0,
+    "stability": "dev",
+    "number": 1.0
+  },
   "description": "A lightweight PHP framework named Warvil",
   "author": "Your Name",
   "keywords": ["php", "framework", "warvil"],
