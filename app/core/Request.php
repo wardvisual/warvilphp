@@ -9,12 +9,12 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public static function isPost(): bool
+    public static function isPostMethod(): bool
     {
         return self::method() === 'POST';
     }
 
-    public static function isGet(): bool
+    public static function isGetMethod(): bool
     {
         return self::method() === 'GET';
     }
@@ -44,5 +44,13 @@ class Request
             return $_GET[$item];
         }
         return '';
+    }
+
+    // requst body
+    public static function body()
+    {
+        $body = file_get_contents('php://input');
+        $body = json_decode($body, true);
+        return $body;
     }
 }

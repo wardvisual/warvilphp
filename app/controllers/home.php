@@ -12,7 +12,7 @@ class Home extends Controller
         header('Access-Control-Allow-Headers: Content-Type');
     }
 
-    public function index()
+    public function index(): void
     {
         $payload = [
             'users' => User::getUsers()
@@ -23,7 +23,7 @@ class Home extends Controller
 
     public function store(): void
     {
-        if (Request::isPost()) {
+        if (Request::isPostMethod()) {
             $userData = [
                 'name' => Request::input('name'),
             ];
