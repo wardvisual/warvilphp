@@ -10,4 +10,12 @@ class Response
         echo json_encode($data);
         exit();
     }
+
+    // status code
+    public static function status($code)
+    {
+        http_response_code($code);
+
+        return new static;
+    }
 }

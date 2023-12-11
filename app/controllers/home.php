@@ -30,13 +30,14 @@ class Home extends Controller
 
             $response = User::create($userData);
 
-            $json = $response
-                ? ['status' => 'success', 'message' => 'User created successfully']
-                : ['status' => 'error', 'message' => 'User creation failed'];
+            if (!$response) {
+                Response::status(500)::json(['status' => 'error', 'message' => 'User creation failed']);
+                return;
+            }
 
-            Response::json($json);
+            Response::status(201)::json(['status' => 'success', 'message' => 'User created successfully']);
         } else {
-            Response::json(['status' => 'error', 'message' => 'Invalid request method']);
+            Response::status(405)::json(['status' => 'error', 'message' => 'Invalid request method']);
         }
 
         exit();
