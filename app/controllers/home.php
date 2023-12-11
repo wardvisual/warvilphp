@@ -28,13 +28,13 @@ class Home extends Controller
                 'name' => Request::input('name'),
             ];
 
-            $user = User::create($userData);
+            $response = User::create($userData);
 
-            $response = $user
+            $json = $response
                 ? ['status' => 'success', 'message' => 'User created successfully']
                 : ['status' => 'error', 'message' => 'User creation failed'];
 
-            Response::json($response);
+            Response::json($json);
         } else {
             Response::json(['status' => 'error', 'message' => 'Invalid request method']);
         }
