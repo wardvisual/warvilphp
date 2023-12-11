@@ -37,16 +37,6 @@ class Database
     }
 
 
-
-    public function performCustomQuery($sql)
-    {
-        if (!$this->query($sql)->error()) {
-            return $this;
-        }
-
-        return false;
-    }
-
     public function query($sql, $params = array())
     {
         $this->_error = false;
@@ -70,20 +60,6 @@ class Database
         }
 
         return $this;
-    }
-
-    public function getRecordCount($table, $where, $options = [])
-    {
-        $data = $this->action('SELECT *', $table, $where, $options);
-
-        return $data;
-    }
-
-    public function getRecordSum($table, $sum_of, $where, $options = [])
-    {
-        $data = $this->action('SELECT SUM(' . $sum_of . ')', $table, $where, $options);
-
-        return $data;
     }
 
     public function join($table1, $table2, $joinCondition, $selectColumns = '*', $whereConditions = array(), $options = array())

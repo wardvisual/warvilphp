@@ -1,6 +1,7 @@
 <?php
 
-function bootstrap() {
+function bootstrap()
+{
     require_once 'app/init.php';
     new \app\core\App();
 }
