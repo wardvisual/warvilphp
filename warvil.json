@@ -13,8 +13,7 @@
   "keywords": ["php", "framework", "warvil"],
   "license": "MIT",
   "dependencies": {
-    "php": ">=7.2.0",
-    "some-library": "^1.0.0"
+    "php": ">=8.2.0"
   },
   "scripts": {
     "start": "php -S localhost:8000 -t public"
@@ -27,7 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Warvil\\": "src/"
+      "Warvil\\": "/"
     }
   },
   "require-dev": {
