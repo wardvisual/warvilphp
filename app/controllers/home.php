@@ -21,23 +21,23 @@ class Home extends Controller
         $this->view('home/index', $payload);
     }
 
-    public function store()
+    public function store(): void
     {
-        if (Request::method() === 'POST') {
+        if (Request::isPost()) {
             $userData = [
                 'name' => Request::input('name'),
             ];
 
-            $response = User::create($userData);
+            $userCreated = User::create($userData);
 
-            if (!$response) {
-                Response::status(500)::json(['status' => 'error', 'message' => 'User creation failed']);
+            if (!$userCreated) {
+                Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
                 return;
             }
 
-            Response::status(201)::json(['status' => 'success', 'message' => 'User created successfully']);
+            Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
         } else {
-            Response::status(405)::json(['status' => 'error', 'message' => 'Invalid request method']);
+            Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
         }
 
         exit();
