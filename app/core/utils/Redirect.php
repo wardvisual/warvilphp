@@ -1,8 +1,9 @@
 <?php
 
-namespace app\core;
+namespace app\core\utils;
 
 use app\core\utils\UrlHelper;
+use app\core\{App};
 
 class Redirect
 {
