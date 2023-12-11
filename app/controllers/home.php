@@ -23,16 +23,18 @@ class Home extends Controller
 
     public function store()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user = User::create([
+        if (Request::method() === 'POST') {
+            $userData = [
                 'name' => Request::input('name'),
-            ]);
+            ];
 
-            if ($user) {
-                Response::json(['status' => 'success', 'message' => 'User created successfully']);
-            } else {
-                Response::json(['status' => 'error', 'message' => 'User creation failed']);
-            }
+            $user = User::create($userData);
+
+            $response = $user
+                ? ['status' => 'success', 'message' => 'User created successfully']
+                : ['status' => 'error', 'message' => 'User creation failed'];
+
+            Response::json($response);
         } else {
             Response::json(['status' => 'error', 'message' => 'Invalid request method']);
         }
