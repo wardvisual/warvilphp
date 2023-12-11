@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\core\utils\DateHelper;
 
+
 class Model
 {
     private $_db;
@@ -18,11 +19,11 @@ class Model
         $this->_db = \app\core\Database::getInstance();
     }
 
-    protected function create($fields = array())
+    public function create($fields = array())
     {
         $fieldsToCreate = array(
             ...$fields,
-            'created_at' => DateHelper::getCurrentDate()
+            // 'created_at' => DateHelper::getCurrentDate()
         );
 
         if (!$this->_db->insert($this->_table, $fieldsToCreate)) {

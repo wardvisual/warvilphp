@@ -1,6 +1,6 @@
 <?php
 
-use \app\core\{Controller};
+use \app\core\{Controller, Request, Response};
 use \app\models\User;
 
 class Home extends Controller
@@ -24,19 +24,17 @@ class Home extends Controller
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $age = $_POST['age'];
+            $user = User::create([
+                'name' => Request::input('name'),
+            ]);
 
-            $payload = [
-                'name' => $name,
-                'age' => $age,
-            ];
-
-            $result = \app\models\User::createUser($payload);
-
-            echo json_encode(['status' => 'success', 'message' => 'User created successfully', 'data' => $payload]);
+            if ($user) {
+                Response::json(['status' => 'success', 'message' => 'User created successfully']);
+            } else {
+                Response::json(['status' => 'error', 'message' => 'User creation failed']);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+            Response::json(['status' => 'error', 'message' => 'Invalid request method']);
         }
 
         exit();
