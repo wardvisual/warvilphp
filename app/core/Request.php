@@ -21,19 +21,8 @@ class Request
 
     public static function exists($type = 'POST')
     {
-        switch ($type) {
-            case 'POST':
-                return (!empty($_POST)) ? true : false;
-                break;
-
-            case 'GET':
-                return (!empty($_GET)) ? true : false;
-                break;
-
-            default:
-                return false;
-                break;
-        }
+        $requestData = ($type === 'POST') ? $_POST : $_GET;
+        return !empty($requestData);
     }
 
     public static function input($item)
@@ -46,7 +35,6 @@ class Request
         return '';
     }
 
-    // requst body
     public static function body()
     {
         $body = file_get_contents('php://input');
