@@ -61,7 +61,7 @@ class App
         $this->params = $url ? array_values($url) : [];
     }
 
-    public function parseURL()
+    private function parseURL()
     {
         if (!isset($_GET['url'])) return;
 
@@ -70,5 +70,16 @@ class App
         $url = explode('/', $url);
 
         return $url;
+    }
+
+    public static function isProduction()
+    {
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            // echo "Development environment";
+            return false;
+        } else {
+            // echo "Production environment";
+            return true;
+        }
     }
 }
