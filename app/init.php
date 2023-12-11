@@ -13,3 +13,4 @@ spl_autoload_register(function ($class_name) {
 
 require_once 'core/App.php';
 require_once 'core/Controller.php';
+require_once 'core/Model.php';

@@ -1,30 +1,17 @@
-<?php 
+<?php
 
 namespace app\models;
 
-class User {
-    private static array $users = [
-        [
-            'name' => 'Edward',
-            'age' => 20
-        ],
-        [
-            'name' => 'Hanah',
-            'age' => 19
-        ],
-        [
-            'name' => 'Gardo',
-            'age' => 20
-        ],
-    ];
+use app\core\Model;
 
+class User extends Model
+{
     public static function getUsers(): array
     {
-        return self::$users;
+        return [];
     }
 
     public static function createUser($user): void
     {
-        array_push(self::$users, $user);
     }
 }
