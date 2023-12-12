@@ -4,7 +4,6 @@ namespace app\core;
 
 use app\core\utils\DateHelper;
 
-
 class Model
 {
     private $_db;
@@ -87,7 +86,8 @@ class Model
 
         return false;
     }
-    public function select($identifier, $value, $options = array())
+
+    public function get($identifier, $value, $options = array())
     {
         $data = $this->_db->get($this->_table, array($identifier, '=', $value), $options);
 
@@ -97,6 +97,18 @@ class Model
 
         return false;
     }
+
+    public function select($attributes, $identifier, $value, $options = array())
+    {
+        $data = $this->_db->select($attributes, $this->_table, array($identifier, '=', $value), $options);
+
+        if ($data->count()) {
+            return $data;
+        }
+
+        return false;
+    }
+
     public function selectByNotEqual($identifier, $value, $options = array())
     {
         $data = $this->_db->get($this->_table, array($identifier, '!=', $value), $options);

@@ -13,7 +13,15 @@ class User
 
     public static function getUsers(): array
     {
-        return [];
+        $userModel = self::user();
+
+        $response = $userModel->get(1, 1);
+
+        if (!$response) {
+            return [];
+        }
+
+        return $response->results();
     }
 
     public static function create($user = array()): bool

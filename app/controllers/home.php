@@ -5,6 +5,10 @@ use \app\models\User;
 
 class Home extends Controller
 {
+    protected $data = [
+        'users' => []
+    ];
+
     /**
      * Constructor to set CORS headers.
      */
@@ -16,6 +20,8 @@ class Home extends Controller
         header('Access-Control-Allow-Methods: POST, OPTIONS');
         // Allow the Content-Type header for cross-origin requests
         header('Access-Control-Allow-Headers: Content-Type');
+
+        $this->getUsers();
     }
 
     /**
@@ -23,11 +29,12 @@ class Home extends Controller
      */
     public function index(): void
     {
-        $payload = [
-            'users' => User::getUsers()
-        ];
+        $this->view('home/index', $this->data);
+    }
 
-        $this->view('home/index', $payload);
+    public function getUsers(): void
+    {
+        $this->data['users'] = User::getUsers();
     }
 
     /**
@@ -49,7 +56,6 @@ class Home extends Controller
                 Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
             }
 
-            // Respond with success status if user created successfully
             Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
         } else {
             // Respond with error status for invalid request method

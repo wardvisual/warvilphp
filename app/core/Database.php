@@ -155,6 +155,11 @@ class Database
         return $this->action('SELECT *', $table, $where, $options);
     }
 
+    public function select($attributes, $table, $where, $options = array())
+    {
+        return $this->action('SELECT ' . $attributes, $table, $where, $options);
+    }
+
     public function delete($table, $where)
     {
         return $this->action('DELETE', $table, $where);

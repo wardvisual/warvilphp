@@ -18,6 +18,7 @@
         <button>Submit</button>
     </form>
 
+    <?php dd($data['users']); ?>
     <script src="public/js/apiFormHandler.js"></script>
 
     <script>
@@ -26,7 +27,7 @@
             url: 'home/store',
             actions: {
                 onSuccess: (response) => {
-                    alert(response);
+                    // alert(response);
                 },
                 onError: (error) => {
                     console.log(error);
