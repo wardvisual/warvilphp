@@ -9,7 +9,7 @@
     "number": 1.0
   },
   "description": "A lightweight PHP framework named Warvil",
-  "author": "Your Name",
+  "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvil"],
   "license": "MIT",
   "dependencies": {
@@ -28,8 +28,5 @@
     "psr-4": {
       "Warvil\\": "/"
     }
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.0"
   }
 }

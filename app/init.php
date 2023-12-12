@@ -4,19 +4,18 @@ require_once 'core/utils/Loader.php';
 
 use app\core\utils\Loader;
 
-Loader::load('app/core/utils/', 'Helpers');
-Loader::load('app/core/utils/', 'DateHelper');
 Loader::load('app/', 'config');
-Loader::load('app/core/', 'Config');
-Loader::load('app/core/', 'Database');
-Loader::load('app/core/', 'Request');
-Loader::load('app/core/', 'Response');
 
 spl_autoload_register(function ($class_name) {
-    $core = ['App', 'Controller', 'Model'];
+    $core = ['App', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config'];
+    $coreUtils = ['Loader', 'Helpers', 'DateHelper'];
 
     foreach ($core as $class) {
         Loader::load('app/core/', $class);
+    }
+
+    foreach ($coreUtils as $class) {
+        Loader::load('app/core/utils', $class);
     }
 
     $model = 'app/models/' . getModelName($class_name) . '.php';
