@@ -27,7 +27,8 @@
             url: 'home/store',
             actions: {
                 onSuccess: (response) => {
-                    // alert(response);
+                    location.reload();
+                    console.log(response);
                 },
                 onError: (error) => {
                     console.log(error);
