@@ -5,7 +5,6 @@
   "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvil"],
   "license": "MIT",
-
   "database": {
     "host": "localhost",
     "dbname": "works_warvilphp",
@@ -17,7 +16,10 @@
     "publicDirectory": "public",
     "controllersDirectory": "app/controllers",
     "modelsDirectory": "app/models",
-    "viewsDirectory": "app/views"
+    "viewsDirectory": "app/views",
+    "layouts": {
+      "default": "app/shared/layouts/main.php"
+    }
   },
   "config": {
     "password": {
@@ -40,13 +42,10 @@
     "session": {
       "session_name": "user",
       "token_name": "token"
+    },
+    "api": {
+      "baseUrl": "https://api.warvilphp.com",
+      "apiKey": "your_api_key"
     }
-  },
-  "api": {
-    "baseUrl": "https://api.example.com",
-    "apiKey": "your_api_key"
-  },
-  "layouts": {
-    "default": "layouts/default"
   }
 }

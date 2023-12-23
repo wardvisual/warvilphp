@@ -19,7 +19,7 @@ class Controller
 
     private function renderView($viewPath, $data = [])
     {
-        $layoutPath = 'app/shared/layouts/main.php'; // map it to warvil.json
+        $layoutPath = Config::get('paths/layouts/default');
 
         ob_start();
         extract($data);
