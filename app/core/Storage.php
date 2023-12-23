@@ -15,10 +15,10 @@ class Storage
         self::$maxSize = Config::get('config/storage/max_size');
     }
 
-    public static function uploadFile($file)
+    public static function upload($file)
     {
         self::load();
-        if (!self::validateFile($file)) {
+        if (!self::validate($file)) {
             return false;
         }
 
@@ -35,7 +35,7 @@ class Storage
         return false;
     }
 
-    public static function deleteFile($fileName)
+    public static function delete($fileName)
     {
         self::load();
 
@@ -49,7 +49,7 @@ class Storage
         return false;
     }
 
-    public static function getFile($fileName)
+    public static function get($fileName)
     {
         self::load();
         $filePath = self::$uploadDir . '/' . $fileName;
@@ -61,7 +61,7 @@ class Storage
         return false;
     }
 
-    public static function validateFile($file)
+    public static function validate($file)
     {
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $size = $file['size'];

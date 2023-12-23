@@ -47,7 +47,7 @@ class Home extends Controller
     {
         // Check if the request method is POST
         if (Request::isPostMethod()) {
-            $result =  Storage::uploadFile(Request::file('image'));
+            $result =  Storage::upload(Request::file('image'));
 
             Response::status(201)->json(['status' => 'success', 'message' => $result]);
         } else {
