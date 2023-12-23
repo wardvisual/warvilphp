@@ -53,6 +53,11 @@
     "api": {
       "baseUrl": "https://api.warvilphp.com",
       "apiKey": "your_api_key"
+    },
+    "storage": {
+      "directory": "uploads",
+      "max_size": 5000000,
+      "allowed_types": ["jpg", "jpeg", "png", "gif"]
     }
   }
 }
