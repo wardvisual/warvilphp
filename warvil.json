@@ -1,7 +1,7 @@
 {
-  "name": "WarvilFramework1",
+  "name": "WarvilPHP",
   "version": "1.0.0",
-  "description": "A lightweight PHP framework named Warvil",
+  "description": "A lightweight PHP framework named WarvilPHP",
   "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvilPHP"],
   "license": "MIT",
@@ -13,12 +13,18 @@
     "charset": "utf8mb4"
   },
   "paths": {
-    "publicDirectory": "public",
-    "controllersDirectory": "app/controllers",
-    "modelsDirectory": "app/models",
-    "viewsDirectory": "app/views",
+    "public": "public",
+    "controllers": "app/controllers",
+    "models": "app/models",
+    "views": "app/views",
+    "styles": {
+      "base": "public/css/base.css"
+    },
     "layouts": {
       "default": "app/shared/layouts/main.php"
+    },
+    "errors": {
+      "404": "app/shared/errors/404.php"
     }
   },
   "config": {

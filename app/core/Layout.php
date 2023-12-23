@@ -18,12 +18,7 @@ class Layout
         $jsonFile = file_get_contents('warvil.json');
         $warvilConfig = json_decode($jsonFile, true);
 
-        // Use the application name in the head tag
-        $appName = isset($warvilConfig['name']) ? $warvilConfig['name'] : 'WarvilPHP';
-        // Use version information
-        $version = isset($warvilConfig['version']) && $warvilConfig['version'];
-        // Use description information
-        $description = isset($warvilConfig['description']) ? $warvilConfig['description'] : 'Made with WARVILPHP';
+        $baseStyle = Config::get('paths/styles/base');
 
         if (file_exists($layoutPath)) {
             include_once $layoutPath;

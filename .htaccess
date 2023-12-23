@@ -5,6 +5,11 @@ Options -MultiViews
 # Activates URL rewriting (like myproject.com/controller/action/1/2/3)
 RewriteEngine On
 
+<Files "warvil.json">
+    Order allow,deny
+    Deny from all
+</Files>
+
 # Disallows others to look directly into /public/ folder
 Options -Indexes
 
@@ -18,3 +23,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
