@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A lightweight PHP framework named Warvil",
   "author": "Wardvisual <wardvisual@gmail.com>",
-  "keywords": ["php", "framework", "warvil"],
+  "keywords": ["php", "framework", "warvilPHP"],
   "license": "MIT",
   "database": {
     "host": "localhost",
