@@ -11,9 +11,4 @@ class About extends Controller
     {
         $this->view('about/index');
     }
-
-    public function test()
-    {
-        echo 'test';
-    }
 }

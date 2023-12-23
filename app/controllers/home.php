@@ -42,6 +42,7 @@ class Home extends Controller
     /**
      * Handle the user creation request.
      */
+
     public function store(): void
     {
         // Check if the request method is POST

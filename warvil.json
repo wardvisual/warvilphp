@@ -1,11 +1,12 @@
 {
   "name": "WarvilPHP",
   "version": "1.0.0",
-  "description": "A lightweight PHP framework named WarvilPHP",
+  "description": "WarvilPHP, A lightweight PHP framework",
   "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvilPHP"],
   "license": "MIT",
   "database": {
+    "driver": "mysql",
     "host": "localhost",
     "dbname": "works_warvilphp",
     "username": "root",
@@ -18,7 +19,7 @@
     "models": "app/models",
     "views": "app/views",
     "styles": {
-      "base": "public/css/base.css"
+      "base": "public/styles/base.css"
     },
     "layouts": {
       "default": "app/shared/layouts/main.php"

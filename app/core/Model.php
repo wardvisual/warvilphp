@@ -95,4 +95,37 @@ class Model extends Database
 
         return $this->execute();
     }
+
+    public function createTable($table, array $fields)
+    {
+        if (empty($fields)) {
+            // Handle error: No fields provided
+            return false;
+        }
+
+        // Construct the SQL query for creating the table
+        $sql = "CREATE TABLE IF NOT EXISTS {$table} (";
+        foreach ($fields as $fieldName => $fieldType) {
+            $sql .= "$fieldName $fieldType, ";
+        }
+        $sql = rtrim($sql, ', '); // Remove the trailing comma
+        $sql .= ")";
+
+        // Execute the query
+        $this->query($sql);
+
+        return $this->execute();
+    }
+
+
+    public function dropTable($table)
+    {
+        // Construct the SQL query for dropping the table
+        $sql = "DROP TABLE IF EXISTS {$table}";
+
+        // Execute the query
+        $this->query($sql);
+
+        return $this->execute();
+    }
 }

@@ -11,7 +11,7 @@ class Layout
         $this->content = $content;
     }
 
-    public function render($layoutPath = null)
+    public function render($layoutPath = null, $cssPath = '')
     {
 
         // Read warvil.json
