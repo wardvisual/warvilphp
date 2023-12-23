@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace app\core;
 
-class Controller {
+class Controller
+{
     public function model($model)
     {
         require_once 'app/models/' . $model . '.php';
@@ -11,6 +12,21 @@ class Controller {
 
     public function view($view, $data = [])
     {
-        require_once 'app/views/' . $view . '.php';
+
+        $this->renderView('app/views/' . $view . '.php', $data);
+        // require_once 'app/views/' . $view . '.php';
+    }
+
+    private function renderView($viewPath, $data = [])
+    {
+        $layoutPath = 'app/shared/layouts/main.php'; // map it to warvil.json
+
+        ob_start();
+        extract($data);
+        include_once $viewPath;
+        $content = ob_get_clean();
+
+        $layout = new Layout($content);
+        $layout->render($layoutPath);
     }
 }

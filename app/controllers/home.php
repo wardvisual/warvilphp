@@ -34,7 +34,9 @@ class Home extends Controller
 
     public function getUsers(): void
     {
-        $this->data['users'] = User::getUsers();
+        $user = new User();
+
+        $this->data['users'] = $user->getAll();
     }
 
     /**
@@ -44,12 +46,15 @@ class Home extends Controller
     {
         // Check if the request method is POST
         if (Request::isPostMethod()) {
+            // Request::body(['name' => 'required|string']);
             $userData = [
                 'name' => Request::input('name'),
             ];
 
+            $user = new User();
+
             // Attempt to create a new user
-            $userCreated = User::create($userData);
+            $userCreated =   $user->create($userData);
 
             // Check if user creation failed
             if (!$userCreated) {

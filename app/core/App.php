@@ -21,7 +21,7 @@ class App
 
             call_user_func_array([$this->controller, $this->method], [$this->params]);
         } catch (\Exception $e) {
-            echo '404 | Page not found.';
+            echo '404 | Page not found.' . $e->getMessage();
             // echo 'Page not found: <br/>next>> ' . $e->getMessage();
         }
     }

@@ -4,130 +4,95 @@ namespace app\core;
 
 use app\core\utils\DateHelper;
 
-class Model
+class Model extends Database
 {
-    private $_db;
-    private $_table;
+    protected $table;
 
     public function __construct($table = null)
     {
+        parent::__construct();
+
         if ($table) {
-            $this->_table = $table;
+            $className = (new \ReflectionClass($this))->getShortName();
+            $this->table = strtolower($className) . 's';
         }
-
-        $this->_db = \app\core\Database::getInstance();
     }
 
-    public function create($fields = array())
+    public function getAll()
     {
-        $fieldsToCreate = array(
-            ...$fields,
-            // 'created_at' => DateHelper::getCurrentDate()
-        );
+        $this->query("SELECT * FROM {$this->table}");
 
-        if (!$this->_db->insert($this->_table, $fieldsToCreate)) {
-            return false;
-        }
-
-        return true;
+        return $this->resultSet();
     }
 
-    public function updateOne($identifier, $field)
+    public function getById($id)
     {
-        $fieldsToUpdate = array(
-            ...$field,
-            'updated_at' => DateHelper::getCurrentDate()
-        );
-
-        $result = $this->_db->update($this->_table, $identifier, $fieldsToUpdate);
-
-        if (!$result) {
-            return false;
-        }
-
-        return true;
+        $this->query("SELECT * FROM {$this->table} WHERE id = :id");
+        $this->bind(':id', $id);
+        return $this->single();
     }
 
-    protected function update($id, $fields)
+    public function getByField($field, $value)
     {
-        $fieldsToUpdate = array(
-            ...$fields,
-            'updated_at' => DateHelper::getCurrentDate()
-        );
-        if (!$this->_db->update($this->_table, $id, $fieldsToUpdate)) {
-            return false;
-        }
-
-        return true;
+        $this->query("SELECT * FROM {$this->table} WHERE {$field} = :value");
+        $this->bind(':value', $value);
+        return $this->resultSet();
     }
 
-    public function selectOneById($id)
+    public static function _create($data)
     {
-        if ($id) {
-            $data = $this->_db->get($this->_table, array('id', '=', $id));
-
-            if ($data->count()) {
-                return $data->first();
-            }
-        }
-
-        return false;
+        $instance = new static();
+        $instance->create($data);
+        return $instance;
     }
 
-    public function selectOne($identifier, $value)
+    public function create($data)
     {
-        if ($identifier && $value) {
-            $data = $this->_db->get($this->_table, array($identifier, '=', $value));
+        $columns = implode(', ', array_keys($data));
+        $values = ':' . implode(', :', array_keys($data));
 
-            if ($data->count()) {
-                return $data->first();
-            }
+        $this->query("INSERT INTO {$this->table} ({$columns}) VALUES ({$values})");
+
+        foreach ($data as $key => $value) {
+            $this->bind(":$key", $value);
         }
 
-        return false;
+        return $this->execute();
     }
 
-    public function get($identifier, $value, $options = array())
+    public function update($id, $data)
     {
-        $data = $this->_db->get($this->_table, array($identifier, '=', $value), $options);
+        $setClause = '';
+        foreach ($data as $key => $value) {
+            $setClause .= "$key = :$key, ";
+        }
+        $setClause = rtrim($setClause, ', ');
 
-        if ($data->count()) {
-            return $data;
+        $this->query("UPDATE {$this->table} SET $setClause WHERE id = :id");
+        $this->bind(':id', $id);
+
+        foreach ($data as $key => $value) {
+            $this->bind(":$key", $value);
         }
 
-        return false;
+        return $this->execute();
     }
 
-    public function select($attributes, $identifier, $value, $options = array())
+    public function delete($id)
     {
-        $data = $this->_db->select($attributes, $this->_table, array($identifier, '=', $value), $options);
-
-        if ($data->count()) {
-            return $data;
-        }
-
-        return false;
+        $this->query("DELETE FROM {$this->table} WHERE id = :id");
+        $this->bind(':id', $id);
+        return $this->execute();
     }
 
-    public function selectByNotEqual($identifier, $value, $options = array())
+    public function customQuery($sql, $params = [])
     {
-        $data = $this->_db->get($this->_table, array($identifier, '!=', $value), $options);
+        $this->query($sql);
 
-        if ($data->count()) {
-            return $data;
+        foreach ($params as $param => $value) {
+            $this->bind($param, $value);
         }
 
-        return false;
-    }
-
-    public function selectByGreaterThan($identifier, $value, $options = array())
-    {
-        $data = $this->_db->get($this->_table, array($identifier, '>', $value), $options);
-
-        if ($data->count()) {
-            return $data;
-        }
-
-        return false;
+        return $this->execute();
     }
 }

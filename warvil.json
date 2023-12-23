@@ -1,32 +1,52 @@
 {
-  "name": "WarvilFramework",
-  "version": {
-    "major": 1,
-    "minor": 0,
-    "patch": 0,
-    "build": 0,
-    "stability": "dev",
-    "number": 1.0
-  },
+  "name": "WarvilFramework1",
+  "version": "1.0.0",
   "description": "A lightweight PHP framework named Warvil",
   "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvil"],
   "license": "MIT",
-  "dependencies": {
-    "php": ">=8.2.0"
+
+  "database": {
+    "host": "localhost",
+    "dbname": "works_warvilphp",
+    "username": "root",
+    "password": "",
+    "charset": "utf8mb4"
   },
-  "scripts": {
-    "start": "php -S localhost:8000 -t public"
-  },
-  "config": {
+  "paths": {
     "publicDirectory": "public",
     "controllersDirectory": "app/controllers",
     "modelsDirectory": "app/models",
     "viewsDirectory": "app/views"
   },
-  "autoload": {
-    "psr-4": {
-      "Warvil\\": "/"
+  "config": {
+    "password": {
+      "algo": "PASSWORD_DEFAULT",
+      "options": {
+        "cost": 10,
+        "salt": 50
+      }
+    },
+    "hash": {
+      "algo": "sha256",
+      "options": {
+        "salt": 50
+      }
+    },
+    "remember": {
+      "cookie_name": "hash",
+      "cookie_expiry": 604800
+    },
+    "session": {
+      "session_name": "user",
+      "token_name": "token"
     }
+  },
+  "api": {
+    "baseUrl": "https://api.example.com",
+    "apiKey": "your_api_key"
+  },
+  "layouts": {
+    "default": "layouts/default"
   }
 }

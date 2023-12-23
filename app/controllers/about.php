@@ -1,14 +1,19 @@
-<?php 
+<?php
 
 use \app\core\Controller;
 
-class About extends Controller {
-    public function index()
+class About extends Controller
+{
+    /**
+     * Display the index page.
+     */
+    public function index(): void
     {
-        echo 'about';
+        $this->view('about/index');
     }
 
-    public function test() {
+    public function test()
+    {
         echo 'test';
     }
 }

@@ -1,12 +1,13 @@
-function createFormApi({
+function apiFormRequest({
   formId,
   url,
   method = "POST",
   data = {},
   actions = {},
 }) {
-  const baseUrl = "/mvc";
-  const requestUrl = `${baseUrl}/${url}`;
+  const origin = window.location.origin;
+  const pathname = window.location.pathname;
+  const requestUrl = `${pathname}${url}`;
 
   async function sendFormData(formData) {
     try {
@@ -52,6 +53,17 @@ function createFormApi({
     }
   }
 
+  function clearForm() {
+    const formElement = getFormElement();
+    formElement.reset();
+
+    for (const element of formElement.elements) {
+      if (element.name) {
+        element.value = "";
+      }
+    }
+  }
+
   function listen(action) {
     const formElement = getFormElement();
 
@@ -61,6 +73,7 @@ function createFormApi({
       const response = await submitForm();
 
       if (response) {
+        clearForm();
         action.onSuccess(JSON.stringify(response));
       } else {
         action.onError(JSON.stringify(response));

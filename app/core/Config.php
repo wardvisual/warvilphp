@@ -4,21 +4,39 @@ namespace app\core;
 
 class Config
 {
-    public static function get($path = null)
+    protected static $config;
+
+    public static function get($key, $default = null)
     {
-        if ($path) {
-            $config = $GLOBALS['config'];
-            $path = explode('/', $path);
-
-            foreach ($path as $bit) {
-                if (isset($config[$bit])) {
-                    $config = $config[$bit];
-                }
-            }
-
-            return $config;
+        if (!self::$config) {
+            self::loadConfig();
         }
 
-        return false;
+        $keys = explode('/', $key);
+        $current = self::$config;
+
+        foreach ($keys as $nestedKey) {
+            if (isset($current[$nestedKey])) {
+                $current = $current[$nestedKey];
+            } else {
+                return $default;
+            }
+        }
+
+        return $current;
+    }
+
+    protected static function loadConfig()
+    {
+        $configFile = 'warvil.json';
+
+        if (file_exists($configFile)) {
+            $configContent = file_get_contents($configFile);
+            self::$config = json_decode($configContent, true) ?: [];
+        } else {
+            // Handle the case when the config file is not found
+            echo 'Error: Configuration file not found';
+            self::$config = [];
+        }
     }
 }

@@ -4,6 +4,10 @@ namespace app\core\utils;
 
 class DateHelper
 {
+    public static function now($format = 'Y-m-d H:i:s')
+    {
+        return date($format);
+    }
     /**
      * Get the end of the month in the range of the provided start month.
      *

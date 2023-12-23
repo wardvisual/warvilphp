@@ -78,7 +78,7 @@ class UrlHelper
         if (App::isProduction()) {
             $newPath = UrlHelper::baseUrl() . '/' . $path;
         } else {
-            $newPath = UrlHelper::baseUrl() . '/mvc' . '/' . $path;
+            $newPath = UrlHelper::baseUrl() . '/warvilphp' . '/' . $path;
         }
 
         return $newPath;
