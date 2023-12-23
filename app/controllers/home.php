@@ -1,6 +1,6 @@
 <?php
 
-use \app\core\{Controller, Request, Response};
+use \app\core\{Controller, Request, Response, Storage};
 use \app\models\User;
 
 class Home extends Controller
@@ -47,22 +47,9 @@ class Home extends Controller
     {
         // Check if the request method is POST
         if (Request::isPostMethod()) {
-            // Request::body(['name' => 'required|string']);
-            $userData = [
-                'name' => Request::input('name'),
-            ];
+            $result =  Storage::uploadFile(Request::file('image'));
 
-            $user = new User();
-
-            // Attempt to create a new user
-            $userCreated =   $user->create($userData);
-
-            // Check if user creation failed
-            if (!$userCreated) {
-                Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
-            }
-
-            Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
+            Response::status(201)->json(['status' => 'success', 'message' => $result]);
         } else {
             // Respond with error status for invalid request method
             Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
@@ -71,4 +58,36 @@ class Home extends Controller
         // Exit the script after responding
         exit();
     }
+    /**
+     * Handle the user creation request.
+     */
+
+    // public function store(): void
+    // {
+    //     // Check if the request method is POST
+    //     if (Request::isPostMethod()) {
+    //         // Request::body(['name' => 'required|string']);
+    //         $userData = [
+    //             'name' => Request::input('name'),
+    //         ];
+
+    //         $user = new User();
+
+    //         // Attempt to create a new user
+    //         $userCreated =   $user->create($userData);
+
+    //         // Check if user creation failed
+    //         if (!$userCreated) {
+    //             Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
+    //         }
+
+    //         Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
+    //     } else {
+    //         // Respond with error status for invalid request method
+    //         Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
+    //     }
+
+    //     // Exit the script after responding
+    //     exit();
+    // }
 }

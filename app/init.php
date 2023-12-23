@@ -5,7 +5,7 @@ require_once 'core/utils/Loader.php';
 use app\core\utils\Loader;
 
 spl_autoload_register(function ($class_name) {
-    $core = ['App', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout'];
+    $core = ['App', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage'];
     $coreUtils = ['Loader', 'Helpers', 'DateHelper'];
 
     foreach ($core as $class) {

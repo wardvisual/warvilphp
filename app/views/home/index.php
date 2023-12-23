@@ -1,11 +1,8 @@
 <div>
 
-    <form>
+    <form method='POST' enctype="multipart/form-data">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required /> <br />
-
-        <label for="age">Age:</label>
-        <input type="number" name="age" id="age" required />
+        <input type="file" name="image" id="image" required /> <br />
 
         <button>Submit</button>
     </form>

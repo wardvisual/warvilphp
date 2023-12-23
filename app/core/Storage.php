@@ -4,20 +4,21 @@ namespace app\core;
 
 class Storage
 {
-    protected $uploadDir;
-    protected $allowedExtensions;
-    protected $maxSize;
+    static protected $uploadDir;
+    static protected $allowedExtensions =  [];
+    static protected $maxSize;
 
-    public function __construct()
+    public static function load()
     {
-        $this->uploadDir = Config::get('storage/directory');
-        $this->allowedExtensions = Config::get('storage/allowed_types');
-        $this->maxSize = Config::get('storage/max_size');;
+        self::$uploadDir = CURRENT_DIR . Config::get('config/storage/directory');
+        self::$allowedExtensions = Config::get('config/storage/allowed_types');
+        self::$maxSize = Config::get('config/storage/max_size');
     }
 
-    public function uploadFile($file)
+    public static function uploadFile($file)
     {
-        if (!$this->validateFile($file)) {
+        self::load();
+        if (!self::validateFile($file)) {
             return false;
         }
 
@@ -25,7 +26,7 @@ class Storage
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName = time() . '_' . $originalName . '.' . $extension;
         $fileTmpName = $file['tmp_name'];
-        $destination = $this->uploadDir . '/' . $fileName;
+        $destination = self::$uploadDir . '/' . $fileName;
 
         if (move_uploaded_file($fileTmpName, $destination)) {
             return $destination;
@@ -34,9 +35,11 @@ class Storage
         return false;
     }
 
-    public function deleteFile($fileName)
+    public static function deleteFile($fileName)
     {
-        $filePath = $this->uploadDir . '/' . $fileName;
+        self::load();
+
+        $filePath = self::$uploadDir . '/' . $fileName;
 
         if (file_exists($filePath)) {
             unlink($filePath);
@@ -46,9 +49,10 @@ class Storage
         return false;
     }
 
-    public function getFile($fileName)
+    public static function getFile($fileName)
     {
-        $filePath = $this->uploadDir . '/' . $fileName;
+        self::load();
+        $filePath = self::$uploadDir . '/' . $fileName;
 
         if (file_exists($filePath)) {
             return $filePath;
@@ -57,18 +61,18 @@ class Storage
         return false;
     }
 
-    public function validateFile($file)
+    public static function validateFile($file)
     {
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $size = $file['size'];
 
         // Check the file extension
-        if (!in_array($extension, $this->allowedExtensions)) {
+        if (!in_array($extension, self::$allowedExtensions)) {
             return false;
         }
 
         // Check the file size
-        if ($size > $this->maxSize) {
+        if ($size > self::$maxSize) {
             return false;
         }
 

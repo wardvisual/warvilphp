@@ -38,7 +38,13 @@ function apiFormRequest({
 
     for (const element of formElement.elements) {
       if (element.name) {
-        formData.append(element.name, element.value);
+        if (element.type === "file") {
+          for (let i = 0; i < element.files.length; i++) {
+            formData.append(element.name, element.files[i]);
+          }
+        } else {
+          formData.append(element.name, element.value);
+        }
       }
     }
 
