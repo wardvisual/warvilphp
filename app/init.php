@@ -4,6 +4,13 @@ require_once 'core/utils/Loader.php';
 
 use app\core\utils\Loader;
 
+// Allow cross-origin requests from any origin
+header('Access-Control-Allow-Origin: *');
+// Allow only specified methods for cross-origin requests
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+// Allow the Content-Type header for cross-origin requests
+header('Access-Control-Allow-Headers: Content-Type');
+
 spl_autoload_register(function ($class_name) {
     $core = ['App', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage'];
     $coreUtils = ['Loader', 'Helpers', 'DateHelper'];

@@ -18,7 +18,7 @@ class Model extends Database
         }
     }
 
-    public function getAll()
+    public function all()
     {
         $this->query("SELECT * FROM {$this->table}");
 

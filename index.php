@@ -1,6 +1,5 @@
 <?php
 
-
 define('CURRENT_DIR', __DIR__);
 
 

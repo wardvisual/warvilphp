@@ -1,5 +1,5 @@
 {
-  "name": "WarvilPHP",
+  "name": "warvilphp",
   "version": "1.0.0",
   "description": "WarvilPHP, A lightweight PHP framework",
   "author": "Wardvisual <wardvisual@gmail.com>",
@@ -26,6 +26,9 @@
     },
     "errors": {
       "404": "app/shared/errors/404.php"
+    },
+    "shared": {
+      "components": "app/shared/components"
     }
   },
   "config": {

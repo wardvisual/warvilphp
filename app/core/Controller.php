@@ -17,6 +17,17 @@ class Controller
         $this->renderView('app/views/' . $view . '.php', $data, $options);
     }
 
+    public function component($component, $data = [])
+    {
+        ob_start();
+        extract($data);
+        $component_path = Config::get('paths/shared/components');
+
+        include_once $component_path . '/' . $component . '.php';
+
+        return ob_get_clean();
+    }
+
     private function renderView($viewPath, $data = [], $options = null)
     {
         $layoutPath = !isset($options['layout']) ? Config::get('paths/layouts/default') : Config::get('paths/layouts/' . $options['layout']);

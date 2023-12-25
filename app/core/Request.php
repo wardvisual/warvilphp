@@ -27,13 +27,17 @@ class Request
 
     public static function input($item)
     {
-        if (isset($_POST[$item])) {
-            return $_POST[$item];
-        } elseif (isset($_GET[$item])) {
-            return $_GET[$item];
+        $inputs = array_merge($_POST, $_GET, $_FILES);
+
+        // Check if the content type is JSON
+        if (strpos($_SERVER["CONTENT_TYPE"], 'application/json') !== false) {
+            $jsonData = json_decode(file_get_contents('php://input'), true);
+            $inputs = array_merge($inputs, $jsonData ? $jsonData : []);
         }
-        return '';
+
+        return $inputs[$item] ?? '';
     }
+
     public static function file($item)
     {
         if (isset($_FILES[$item])) {

@@ -9,85 +9,54 @@ class Home extends Controller
         'users' => []
     ];
 
-    /**
-     * Constructor to set CORS headers.
-     */
     public function __construct()
-    {
-        // Allow cross-origin requests from any origin
-        header('Access-Control-Allow-Origin: *');
-        // Allow only specified methods for cross-origin requests
-        header('Access-Control-Allow-Methods: POST, OPTIONS');
-        // Allow the Content-Type header for cross-origin requests
-        header('Access-Control-Allow-Headers: Content-Type');
-
-        $this->getUsers();
-    }
-
-    /**
-     * Display the index page.
-     */
-    public function index(): void
-    {
-        $this->view('home/index', $this->data);
-    }
-
-    public function getUsers(): void
     {
         $user = new User();
 
-        $this->data['users'] = $user->getAll();
+        $this->data['users'] = $user->all();
     }
 
-    /**
-     * Handle the user creation request.
-     */
+    public function index(): void
+    {
+        $this->component('card/index', ['users' => $this->data['users']]);
+        $this->view('home/index', $this->data);
+    }
+
+    public function getData()
+    {
+        $user = new User();
+
+        $user->all();
+        return Response::json($this->data['users']);
+    }
 
     public function store(): void
     {
-        // Check if the request method is POST
-        if (Request::isPostMethod()) {
-            $result =  Storage::upload(Request::file('image'));
+        if (!Request::isPostMethod()) Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
 
-            Response::status(201)->json(['status' => 'success', 'message' => $result]);
-        } else {
-            // Respond with error status for invalid request method
-            Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
-        }
+        $userData = [
+            'username' => Request::input('username'),
+            'email' => Request::input('email'),
+        ];
 
-        // Exit the script after responding
-        exit();
+        $user = new User();
+
+        $userCreated = $user->create($userData);
+
+        if (!$userCreated) Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
+
+        Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
     }
-    /**
-     * Handle the user creation request.
-     */
+    public function delete(): void
+    {
+        if (!Request::isPostMethod()) Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
 
-    // public function store(): void
-    // {
-    //     // Check if the request method is POST
-    //     if (Request::isPostMethod()) {
-    //         // Request::body(['name' => 'required|string']);
-    //         $userData = [
-    //             'name' => Request::input('name'),
-    //         ];
+        $user = new User();
 
-    //         $user = new User();
+        $userCreated = $user->delete(Request::input('id'));
 
-    //         // Attempt to create a new user
-    //         $userCreated =   $user->create($userData);
+        if (!$userCreated) Response::status(500)->json(['status' => 'error', 'message' => 'User deletion failed']);
 
-    //         // Check if user creation failed
-    //         if (!$userCreated) {
-    //             Response::status(500)->json(['status' => 'error', 'message' => 'User creation failed']);
-    //         }
-
-    //         Response::status(201)->json(['status' => 'success', 'message' => 'User created successfully']);
-    //     } else {
-    //         // Respond with error status for invalid request method
-    //         Response::status(405)->json(['status' => 'error', 'message' => 'Invalid request method']);
-    //     }
-
-    //     // Exit the script after responding
-    //     exit();
-    // }
+        Response::status(201)->json(['status' => 'success', 'message' => 'User deleted successfully']);
+    }
 }
