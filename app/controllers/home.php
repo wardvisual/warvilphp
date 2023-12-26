@@ -1,5 +1,7 @@
 <?php
 
+namespace app\controllers;
+
 use \app\core\{Controller, Request, Response, Storage};
 use \app\models\User;
 
@@ -18,8 +20,9 @@ class Home extends Controller
 
     public function index(): void
     {
-        $this->component('card/index', ['users' => $this->data['users']]);
-        $this->view('home/index', $this->data);
+        echo 'hey bro';
+        // $this->component('card/index', ['users' => $this->data['users']]);
+        // $this->view('home/index', $this->data);
     }
 
     public function getData()
