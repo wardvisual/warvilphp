@@ -12,8 +12,19 @@ header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 spl_autoload_register(function ($class_name) {
-    $core = ['App', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage'];
+    $core = ['App', 'Router', 'RouterApi', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage'];
     $coreUtils = ['Loader', 'Helpers', 'DateHelper'];
+    $traits = ['Product'];
+
+    $routes = ['web', 'api'];
+
+    foreach ($routes as $route) {
+        Loader::load('app/routes/', $route);
+    }
+
+    foreach ($traits as $trait) {
+        Loader::load('app/traits/', $trait);
+    }
 
     foreach ($core as $class) {
         Loader::load('app/core/', $class);
