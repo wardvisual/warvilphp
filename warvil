@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * WarvilPHP Command Line Interface
+ * 
+ * This is the main entry point for the WarvilPHP CLI.
+ * It allows direct execution from the project root.
+ */
+
+// Simply forward to the actual CLI implementation
+require __DIR__ . '/bin/warvil';

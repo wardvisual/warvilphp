@@ -167,7 +167,7 @@ STORAGE_MAX_SIZE=1000000
 
 Generate a secure application key:
 ```sh
-php bin/warvil key:generate
+php warvil key:generate
 ```
 
 ## 🖥️ Command Line Interface
@@ -176,40 +176,40 @@ WarvilPHP comes with a command-line tool called warvil for scaffolding component
 Available Commands
 ```sh
 # Create a controller
-php bin/warvil make:controller UserController
+php warvil make:controller UserController
 
 # Create a model
-php bin/warvil make:model User
+php warvil make:model User
 
 # Create a view
-php bin/warvil make:view users/index
+php warvil make:view users/index
 
 # Create a middleware
-php bin/warvil make:middleware Auth
+php warvil make:middleware Auth
 
 # Create a component
-php bin/warvil make:component buttons/primary
+php warvil make:component buttons/primary
 
 # Create a service
-php bin/warvil make:service UserService
+php warvil make:service UserService
 
 # Create an API controller
-php bin/warvil make:api ProductController
+php warvil make:api ProductController
 
 # Create a layout
-php bin/warvil make:layout admin
+php warvil make:layout admin
 
 # Create a database table schema
-php bin/warvil make:table Users
+php warvil make:table Users
 
 # Run a migration
-php bin/warvil migration:run User:up
+php warvil migration:run User:up
 
 # Generate an application key
-php bin/warvil key:generate
+php warvil key:generate
 
 # Show help
-php bin/warvil help
+php warvil help
 ```
 
 ## 🌐 Routing System
@@ -474,7 +474,7 @@ class User extends Model
 
 Using components in views:
 ```sh
-php bin/warvil migration:run User:up
+php warvil migration:run User:up
 ```
 
 ## 🔌 API Development

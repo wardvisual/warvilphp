@@ -51,8 +51,8 @@ foreach ($directories as $dir) {
 }
 
 // Make warvil executable
-if (file_exists('bin/warvil')) {
-    chmod('bin/warvil', 0755);
+if (file_exists('warvil')) {
+    chmod('warvil', 0755);
     echo "{$green}✓ {$reset}Made warvil command executable\n";
 }
 
@@ -91,8 +91,8 @@ foreach ($defaultFiles as $path => $content) {
 
 // Set up a symbolic link for the warvil command (Unix-like systems)
 if (PHP_OS_FAMILY !== 'Windows') {
-    $binPath = '/usr/local/bin/warvil';
-    $warvilScriptPath = getcwd() . '/bin/warvil';
+    $binPath = '/usr/local/warvil';
+    $warvilScriptPath = getcwd() . '/warvil';
     
     // Check if we have permission to create the symlink
     if (is_writable(dirname($binPath))) {
@@ -114,14 +114,14 @@ if (file_exists('.env')) {
     if (strpos($envContent, 'APP_KEY=base64:') === false || strpos($envContent, 'APP_KEY=base64:your-random-key-here') !== false) {
         echo "{$yellow}Generating application key...{$reset}\n";
         // Execute the key generation command
-        if (file_exists('bin/warvil')) {
-            exec('php bin/warvil key:generate', $output);
+        if (file_exists('warvil')) {
+            exec('php warvil key:generate', $output);
             foreach ($output as $line) {
                 echo $line . "\n";
             }
         } else {
             echo "{$yellow}! {$reset}Could not generate application key. Please run manually:\n";
-            echo "  php bin/warvil key:generate\n";
+            echo "  php warvil key:generate\n";
         }
     }
 }
@@ -132,5 +132,5 @@ echo "{$green}✓ {$reset}WarvilPHP installed successfully!\n\n";
 echo "{$yellow}Next steps:{$reset}\n";
 echo "  1. Configure your database in .env\n";
 echo "  2. Start the development server with: {$yellow}composer serve{$reset}\n";
-echo "  3. Create components with: {$yellow}php bin/warvil make:controller YourController{$reset}\n";
+echo "  3. Create components with: {$yellow}php warvil make:controller YourController{$reset}\n";
 echo "\nEnjoy building with WarvilPHP!\n";

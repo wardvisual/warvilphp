@@ -38,16 +38,16 @@
       "php bin/install"
     ],
     "post-install-cmd": [
-      "php -r \"chmod('bin/warvil', 0755);\""
+      "php -r \"chmod('warvil', 0755);\""
     ],
     "serve": "php -S localhost:8000",
-    "warvil": "php bin/warvil",
+    "warvil": "php warvil",
     "setup": "php bin/install"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "bin": [
-    "bin/warvil"
+    "warvil"
   ],
   "config": {
     "sort-packages": true,
