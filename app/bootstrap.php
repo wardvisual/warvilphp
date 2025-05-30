@@ -13,13 +13,17 @@ if (file_exists(WARVIL_ROOT . '/vendor/autoload.php')) {
     require_once WARVIL_ROOT . '/app/init.php';
 }
 
+// Load environment variables from .env file
+require_once WARVIL_ROOT . '/app/core/Env.php';
+\app\core\Env::load();
+
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 // Setting error reporting
-if ((bool)getenv('APP_DEBUG') === true) {
+if ((bool)\app\core\Env::get('APP_DEBUG', false) === true) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 } else {

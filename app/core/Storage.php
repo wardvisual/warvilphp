@@ -10,9 +10,9 @@ class Storage
 
     public static function load()
     {
-        self::$uploadDir = CURRENT_DIR . Config::get('config/storage/directory');
+        self::$uploadDir = CURRENT_DIR . Env::get('STORAGE_DIRECTORY', Config::get('config/storage/directory'));
         self::$allowedExtensions = Config::get('config/storage/allowed_types');
-        self::$maxSize = Config::get('config/storage/max_size');
+        self::$maxSize = Env::get('STORAGE_MAX_SIZE', Config::get('config/storage/max_size'));
     }
 
     public static function upload($file)

@@ -12,18 +12,19 @@ function displayHelp()
 {
     echo "\033[1;33m\nWarvilPHP Framework\n\n\033[0m";
     echo "\033[1;32mDatabase Commands:\033[0m\n";
-    echo "  \033[1;36mphp warvil migration:run Class:up\033[0m - Run a migration\n";
-    echo "  \033[1;36mphp warvil migration:run Class:down\033[0m - Reverse a migration\n";
-    echo "  \033[1;36mphp warvil make:table TableName\033[0m - Create a table schema\n";
+    echo "  \033[1;36mwarvil migration:run Class:up\033[0m - Run a migration\n";
+    echo "  \033[1;36mwarvil migration:run Class:down\033[0m - Reverse a migration\n";
+    echo "  \033[1;36mwarvil make:table TableName\033[0m - Create a table schema\n";
     echo "\n\033[1;32mGenerator Commands:\033[0m\n";
-    echo "  \033[1;36mphp warvil make:model ModelName\033[0m - Create a model\n";
-    echo "  \033[1;36mphp warvil make:controller ControllerName\033[0m - Create a controller\n";
-    echo "  \033[1;36mphp warvil make:view path/name:Controller\033[0m - Create a view\n";
-    echo "  \033[1;36mphp warvil make:middleware MiddlewareName\033[0m - Create a middleware\n";
-    echo "  \033[1;36mphp warvil make:component path/ComponentName\033[0m - Create a component\n";
-    echo "  \033[1;36mphp warvil make:service ServiceName\033[0m - Create a service\n";
-    echo "  \033[1;36mphp warvil make:api ControllerName\033[0m - Create an API controller\n";
-    echo "  \033[1;36mphp warvil make:layout LayoutName\033[0m - Create a layout\n";
+    echo "  \033[1;36mwarvil make:model ModelName\033[0m - Create a model\n";
+    echo "  \033[1;36mwarvil make:controller ControllerName\033[0m - Create a controller\n";
+    echo "  \033[1;36mwarvil make:view path/name:Controller\033[0m - Create a view\n";
+    echo "  \033[1;36mwarvil make:middleware MiddlewareName\033[0m - Create a middleware\n";
+    echo "  \033[1;36mwarvil make:component path/ComponentName\033[0m - Create a component\n";
+    echo "  \033[1;36mwarvil make:service ServiceName\033[0m - Create a service\n";
+    echo "  \033[1;36mwarvil make:api ControllerName\033[0m - Create an API controller\n";
+    echo "  \033[1;36mwarvil make:layout LayoutName\033[0m - Create a layout\n";
+    echo "  \033[1;36mwarvil key:generate\033[0m - Generate an application key\n";
     echo "\n";
 }
 
@@ -39,8 +40,10 @@ $commands = [
     'make:layout' => 'cli/layout.php',
     'make:table' => 'cli/table.php',
     'migration:run' => 'cli/migration.php',
+    'key:generate' => 'cli/key.php',
     'help' => null // Handle help internally
 ];
+
 
 // Check if script was called directly
 $isDirectCall = (basename($_SERVER['SCRIPT_FILENAME']) === 'help.php');

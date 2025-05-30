@@ -50,11 +50,12 @@ $commands = [
     'make:view' => 'view.generator.php',
     'make:middleware' => 'middleware.generator.php',
     'make:component' => 'component.generator.php',
-    'make:service' => 'service.php',
+    'make:service' => 'service.generator.php',
     'make:api' => 'api.php',
     'make:layout' => 'layout.generator.php',
     'make:table' => 'table.php',
     'migration:run' => 'migration.php',
+    'key:generate' => 'key.php',
     'help' => 'help.php'
 ];
 

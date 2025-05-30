@@ -19,10 +19,10 @@ class Database
 
     protected function __construct()
     {
-        $this->_host = Config::get('database/host');
-        $this->_dbname = Config::get('database/dbname');
-        $this->_username = Config::get('database/username');
-        $this->_password =  Config::get('database/password');
+        $this->_host = Env::get('DB_HOST', Config::get('database/host'));
+        $this->_dbname = Env::get('DB_DATABASE', Config::get('database/dbname'));
+        $this->_username = Env::get('DB_USERNAME', Config::get('database/username'));
+        $this->_password = Env::get('DB_PASSWORD', Config::get('database/password'));
         $this->_charset = 'utf8mb4';
         $dsn = "mysql:host={$this->_host};dbname={$this->_dbname};charset={$this->_charset}";
 
