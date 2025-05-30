@@ -8,5 +8,4 @@
  * It allows direct execution from the project root.
  */
 
-// Simply forward to the actual CLI implementation
 require __DIR__ . '/bin/warvil';
