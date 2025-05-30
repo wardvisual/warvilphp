@@ -2,6 +2,8 @@
 
 A **lightweight PHP framework** inspired by Laravel, designed for developers who appreciate simplicity and direct access to the PHP language.
 
+![WarvilPHP](public\assets\warvilphp.jpg)
+
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-v8.0+-blue.svg" alt="PHP Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
