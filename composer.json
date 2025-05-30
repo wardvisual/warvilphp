@@ -39,9 +39,6 @@
     "post-install-cmd": [
       "php -r \"chmod('bin/warvil', 0755);\""
     ],
-    "post-autoload-dump": [
-      "mkdir -p app/database/sql app/database/factories app/middlewares app/shared/components app/views public/uploads"
-    ],
     "serve": "php -S localhost:8000",
     "warvil": "php bin/warvil",
     "setup": "php bin/install"

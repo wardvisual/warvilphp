@@ -31,6 +31,7 @@ $directories = [
     'app/database/factories',
     'app/shared/components',
     'app/shared/layouts',
+    'app/shared/errors',
     'public/uploads',
     'public/assets',
     'public/js',
@@ -38,11 +39,14 @@ $directories = [
 ];
 
 foreach ($directories as $dir) {
-    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
-        echo "Error: Could not create directory '{$dir}'.\n";
-        exit(1);
+    if (!is_dir($dir)) {
+        if (mkdir($dir, 0755, true)) {
+            echo "{$green}✓ {$reset}Created directory: {$dir}\n";
+        } else {
+            echo "{$yellow}! {$reset}Could not create directory: {$dir}\n";
+        }
     } else {
-        echo "{$green}✓ {$reset}Created directory: {$dir}\n";
+        echo "{$yellow}! {$reset}Directory already exists: {$dir}\n";
     }
 }
 
@@ -66,13 +70,9 @@ if (!file_exists('warvil.json') && file_exists('warvil.json.example')) {
 
 // Add initial files that are necessary for WarvilPHP to work
 $defaultFiles = [
-    'app/shared/layouts/main.php' => file_exists('app/shared/layouts/main.php') ? 
-        file_get_contents('app/shared/layouts/main.php') : 
-        '<!DOCTYPE html><html><head><title><?= htmlspecialchars($warvilConfig[\'name\']) ?></title><meta charset="UTF-8"><link rel="stylesheet" href="<?= htmlspecialchars($baseStyle) ?>"></head><body><?= $this->content ?></body></html>',
-    
-    'public/styles/base.css' => file_exists('public/styles/base.css') ? 
-        file_get_contents('public/styles/base.css') : 
-        '* {padding: 0;margin: 0;box-sizing: border-box;font-family: "Arial", sans-serif;}'
+    'app/shared/errors/404.php' => '<?php http_response_code(404); ?><h1>404 - Page Not Found</h1><p>The requested page could not be found.</p>',
+    'app/shared/layouts/main.php' => '<!DOCTYPE html><html><head><title><?= htmlspecialchars($warvilConfig[\'name\']) ?></title><meta charset="UTF-8"><link rel="stylesheet" href="<?= htmlspecialchars($baseStyle) ?>"></head><body><?= $this->content ?></body></html>',
+    'public/styles/base.css' => '* {padding: 0;margin: 0;box-sizing: border-box;font-family: "Arial", sans-serif;}'
 ];
 
 foreach ($defaultFiles as $path => $content) {
@@ -84,6 +84,8 @@ foreach ($defaultFiles as $path => $content) {
     if (!file_exists($path)) {
         file_put_contents($path, $content);
         echo "{$green}✓ {$reset}Created file: {$path}\n";
+    } else {
+        echo "{$yellow}! {$reset}File already exists: {$path}\n";
     }
 }
 
@@ -97,6 +99,8 @@ if (PHP_OS_FAMILY !== 'Windows') {
         if (!file_exists($binPath)) {
             symlink($warvilScriptPath, $binPath);
             echo "{$green}✓ {$reset}Created symbolic link for warvil command\n";
+        } else {
+            echo "{$yellow}! {$reset}Symbolic link already exists\n";
         }
     } else {
         echo "{$yellow}! {$reset}Could not create symlink for warvil command (permission denied). You may need to run this manually:\n";
@@ -104,11 +108,29 @@ if (PHP_OS_FAMILY !== 'Windows') {
     }
 }
 
+// Generate an app key
+if (file_exists('.env')) {
+    $envContent = file_get_contents('.env');
+    if (strpos($envContent, 'APP_KEY=base64:') === false || strpos($envContent, 'APP_KEY=base64:your-random-key-here') !== false) {
+        echo "{$yellow}Generating application key...{$reset}\n";
+        // Execute the key generation command
+        if (file_exists('bin/warvil')) {
+            exec('php bin/warvil key:generate', $output);
+            foreach ($output as $line) {
+                echo $line . "\n";
+            }
+        } else {
+            echo "{$yellow}! {$reset}Could not generate application key. Please run manually:\n";
+            echo "  php bin/warvil key:generate\n";
+        }
+    }
+}
+
 // Update composer.json to include the proper cli commands
 echo "{$green}✓ {$reset}WarvilPHP installed successfully!\n\n";
 
 echo "{$yellow}Next steps:{$reset}\n";
-echo "  1. Configure your database in warvil.json\n";
+echo "  1. Configure your database in .env\n";
 echo "  2. Start the development server with: {$yellow}composer serve{$reset}\n";
 echo "  3. Create components with: {$yellow}php bin/warvil make:controller YourController{$reset}\n";
 echo "\nEnjoy building with WarvilPHP!\n";
