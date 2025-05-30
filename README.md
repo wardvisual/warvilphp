@@ -10,28 +10,27 @@ A **lightweight PHP framework** inspired by Laravel, designed for developers who
 
 ## 📋 Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Directory Structure](#directory-structure)
-- [Configuration](#configuration)
-- [Environment Variables](#environment-variables)
-- [Command Line Interface](#command-line-interface)
-- [Routing System](#routing-system)
-- [Controllers](#controllers)
-- [Views](#views)
-- [Models](#models)
-- [Components](#components)
-- [Middleware](#middleware)
-- [Database Migrations](#database-migrations)
-- [API Development](#api-development)
-- [File Storage](#file-storage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Introduction](#-introduction)
+- [Features](#-features)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Directory Structure](#-directory-structure)
+- [Configuration](#-configuration)
+- [Environment Variables](#-environment-variables)
+- [Command Line Interface](#-command-line-interface)
+- [Routing System](#-routing-system)
+- [Controllers](#-controllers)
+- [Views](#-views)
+- [Models](#-models)
+- [Components](#-components)
+- [Middleware](#-middleware)
+- [Database Migrations](#-database-migrations)
+- [API Development](#-api-development)
+- [File Storage](#-file-storage)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ## 🌟 Introduction
-
 WarvilPHP is a lightweight MVC framework for PHP applications. It provides a clean and elegant syntax similar to Laravel but with a smaller footprint and more direct access to PHP. The framework helps you build web applications quickly without the complexity of larger frameworks.
 
 ## ✨ Features
