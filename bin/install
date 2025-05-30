@@ -6,17 +6,19 @@
  * This script sets up the WarvilPHP framework after installation
  */
 
-$green = "\033[0;32m";
-$yellow = "\033[1;33m";
+$purple = "\033[0;35m"; // Dark Purple
+$white = "\033[1;37m"; // White Text
 $reset = "\033[0m";
 
-echo "{$yellow}
+echo "{$purple}
 ╦ ╦┌─┐┬─┐┬  ┬┬┬  ╔═╗╦ ╦╔═╗
 ║║║├─┤├┬┘└┐┌┘││  ╠═╝╠═╣╠═╝
 ╚╩╝┴ ┴┴└─ └┘ ┴┴─┘╩  ╩ ╩╩   
-
 {$reset}
-        Installing WarvilPHP Framework...
+
+{$white}Installing WarvilPHP Framework...{$reset}";
+
+{$reset}Installing WarvilPHP Framework...
 
 ";
 
