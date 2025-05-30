@@ -32,28 +32,25 @@
   },
   "scripts": {
     "post-create-project-cmd": [
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "php -r \"file_exists('warvil.json') || copy('warvil.json.example', 'warvil.json');\"",
-      "php -r \"mkdir('app/database/sql', 0755, true);\"",
-      "php -r \"mkdir('app/database/factories', 0755, true);\"",
-      "php -r \"mkdir('public/uploads', 0755, true);\""
+      "php bin/install"
     ],
     "post-install-cmd": [
-      "php -r \"chmod('warvil', 0755);\""
+      "php -r \"chmod('bin/warvil', 0755);\""
+    ],
+    "post-autoload-dump": [
+      "mkdir -p app/database/sql app/database/factories app/middlewares app/shared/components app/views public/uploads"
     ],
     "serve": "php -S localhost:8000",
-    "cli:controller": "php cli/controller.php",
-    "cli:model": "php cli/model.php",
-    "cli:view": "php cli/view.php",
-    "cli:middleware": "php cli/middleware.php",
-    "cli:component": "php cli/component.php",
-    "cli:service": "php cli/service.php",
-    "cli:migration": "php cli/migration.php",
-    "cli:table": "php cli/table.php",
-    "cli:help": "php cli/help.php",
-    "cli": "php warvil"
+    "warvil": "php bin/warvil",
+    "setup": "php bin/install"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "bin": [
+    "bin/warvil"
+  ],
   "config": {
     "sort-packages": true,
     "optimize-autoloader": true,

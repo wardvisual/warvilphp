@@ -1,0 +1,107 @@
+#!/usr/bin/env php
+<?php
+
+// Find the project root directory from various possible locations
+$possibleRoots = [
+    __DIR__ . '/..',                          // When running from bin directory in project
+    __DIR__ . '/../../..',                    // When installed via Composer globally
+    getcwd(),                                 // Current working directory
+];
+
+// Add vendor directories for installation via Composer in a project
+$vendorDirs = [
+    '/vendor/wardvisual/warvilphp',           // Standard vendor location
+];
+
+$projectRoot = null;
+foreach ($possibleRoots as $root) {
+    // Check if this is the project root (has cli directory)
+    if (is_dir($root . '/cli')) {
+        $projectRoot = $root;
+        break;
+    }
+    
+    // Check vendor dirs
+    foreach ($vendorDirs as $vendor) {
+        if (is_dir($root . $vendor . '/cli')) {
+            $projectRoot = $root . $vendor;
+            break 2;
+        }
+    }
+}
+
+if (!$projectRoot) {
+    echo "Error: Could not locate project root directory.\n";
+    exit(1);
+}
+
+// Set CLI path
+$cliPath = $projectRoot . '/cli/';
+
+if (!is_dir($cliPath)) {
+    echo "Error: Could not locate CLI commands directory.\n";
+    exit(1);
+}
+
+// Define the commands map - match exactly to the file names in your cli folder
+$commands = [
+    'make:controller' => 'controller.generator.php',
+    'make:model' => 'model.php',
+    'make:view' => 'view.generator.php',
+    'make:middleware' => 'middleware.generator.php',
+    'make:component' => 'component.generator.php',
+    'make:service' => 'service.php',
+    'make:api' => 'api.php',
+    'make:layout' => 'layout.generator.php',
+    'make:table' => 'table.php',
+    'migration:run' => 'migration.php',
+    'help' => 'help.php'
+];
+
+// If no arguments provided, show help
+if ($argc < 2) {
+    echo "Usage: warvil [command] [options]\n";
+    echo "For available commands, use: warvil help\n";
+    exit(1);
+}
+
+$command = $argv[1];
+
+// Handle help command
+if ($command === 'help') {
+    require_once $cliPath . 'help.php';
+    exit(0);
+}
+
+// Check if the command exists
+if (!isset($commands[$command])) {
+    echo "Command '$command' not found.\n";
+    echo "For available commands, use: warvil help\n";
+    exit(1);
+}
+
+// Build the arguments for the command
+$commandArgs = array_slice($argv, 2);
+$commandScript = $cliPath . $commands[$command];
+
+// Check if command file exists
+if (!file_exists($commandScript)) {
+    echo "Error: Command file not found: $commandScript\n";
+    exit(1);
+}
+
+// Execute the command with proper arguments
+// Create a new $argv array for the included script
+$_argv = array_merge([$commands[$command]], $commandArgs);
+
+// Save the original argv
+$originalArgv = $argv;
+
+// Set the new argv for the included script
+$argv = $_argv;
+
+// Include the script
+require_once $commandScript;
+
+// Restore original argv if needed
+$argv = $originalArgv;

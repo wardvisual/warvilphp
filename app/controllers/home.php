@@ -20,9 +20,9 @@ class Home extends Controller
 
     public function index(): void
     {
-        echo 'hey bro';
+        // echo 'hey bro';
         // $this->component('card/index', ['users' => $this->data['users']]);
-        // $this->view('home/index', $this->data);
+        $this->view('home/index', $this->data);
     }
 
     public function getData()
