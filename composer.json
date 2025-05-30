@@ -1,0 +1,65 @@
+{
+  "name": "wardvisual/warvilphp",
+  "description": "A lightweight PHP framework inspired by Laravel",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Edward Fernandez",
+      "email": "wardvisual@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
+    },
+    "files": [
+      "app/core/utils/Helpers.php"
+    ],
+    "classmap": [
+      "app/controllers/",
+      "app/database/sql/"
+    ]
+  },
+  "require": {
+    "php": "^8.0",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-fileinfo": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "php -r \"file_exists('warvil.json') || copy('warvil.json.example', 'warvil.json');\"",
+      "php -r \"mkdir('app/database/sql', 0755, true);\"",
+      "php -r \"mkdir('app/database/factories', 0755, true);\"",
+      "php -r \"mkdir('public/uploads', 0755, true);\""
+    ],
+    "post-install-cmd": [
+      "php -r \"chmod('warvil', 0755);\""
+    ],
+    "serve": "php -S localhost:8000",
+    "cli:controller": "php cli/controller.php",
+    "cli:model": "php cli/model.php",
+    "cli:view": "php cli/view.php",
+    "cli:middleware": "php cli/middleware.php",
+    "cli:component": "php cli/component.php",
+    "cli:service": "php cli/service.php",
+    "cli:migration": "php cli/migration.php",
+    "cli:table": "php cli/table.php",
+    "cli:help": "php cli/help.php",
+    "cli": "php warvil"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "process-timeout": 0,
+    "allow-plugins": {
+      "phpunit/phpunit": true
+    }
+  }
+}
