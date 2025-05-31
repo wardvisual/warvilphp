@@ -178,7 +178,7 @@ EOT;
             
             <!-- Footer -->
             <div class="text-center text-gray-400">
-                <p>WarvilPHP v<?= WARVIL_VERSION ?? '1.0.0' ?> • Made with ❤️ by <a href="https://github.com/wardvisual" class="text-purple-400 hover:text-purple-300">WardVisual</a></p>
+                <p>WarvilPHP v<?= WARVIL_VERSION ?? '0.1.0-alpha' ?> • Made with ❤️ by <a href="https://github.com/wardvisual" class="text-purple-400 hover:text-purple-300">WardVisual</a></p>
                 <p class="text-sm mt-2">Under active development. While we strive for stability, use in production is at your own risk.</p>
             </div>
         </div>
@@ -191,27 +191,15 @@ EOT;
         echo "{$yellow}!{$reset} Welcome view already exists\n";
     }
 
-    // Create CSS file for the welcome view
-    if (!file_exists('app/views/welcome/index.css')) {
-        $welcomeCSS = <<<'EOT'
-/* Welcome page custom styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-EOT;
-        file_put_contents('app/views/welcome/index.css', $welcomeCSS);
-        echo "{$green}✓{$reset} Created welcome styles\n";
-    } else {
-        echo "{$yellow}!{$reset} Welcome styles already exist\n";
-    }
-
     // Update web routes
     if (file_exists('app/routes/web.php')) {
         $routesContent = file_get_contents('app/routes/web.php');
         if (strpos($routesContent, 'WelcomeController') === false) {
             $updatedRoutes = preg_replace('/Router::get\(\'\\/\',.*?;/', "Router::get('/', 'WelcomeController', 'index');", $routesContent);
+            if ($updatedRoutes === $routesContent) {
+                // If no replacement was made, add the route at the beginning
+                $updatedRoutes = "<?php\n\nuse app\core\{Router};\n\n// Welcome page route\nRouter::get('/', 'WelcomeController', 'index');\n\n" . $routesContent;
+            }
             file_put_contents('app/routes/web.php', $updatedRoutes);
             echo "{$green}✓{$reset} Updated root route to use WelcomeController\n";
         } else {
@@ -219,18 +207,19 @@ EOT;
         }
     } else {
         // Create web.php routes file if it doesn't exist
+        if (!is_dir('app/routes')) {
+            mkdir('app/routes', 0755, true);
+            echo "{$green}✓{$reset} Created routes directory\n";
+        }
+        
         $routesContent = <<<'EOT'
 <?php
 
-use app\core\{Router};
+use app\core\Router;
 
+// Welcome page route
 Router::get('/', 'WelcomeController', 'index');
 EOT;
-        
-        if (!is_dir('app/routes')) {
-            mkdir('app/routes', 0755, true);
-        }
-        
         file_put_contents('app/routes/web.php', $routesContent);
         echo "{$green}✓{$reset} Created web routes file with welcome route\n";
     }

@@ -54,6 +54,7 @@ $commands = [
     'make:api' => 'api.php',
     'make:layout' => 'layout.generator.php',
     'make:table' => 'table.php',
+    'make:welcome' => 'welcome.php', // Add this line
     'migration:run' => 'migration.php',
     'key:generate' => 'key.php',
     'serve' => 'serve.php',
