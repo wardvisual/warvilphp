@@ -33,7 +33,7 @@ class App
 
         // Debug routing information
         if (defined('DEBUG') && DEBUG) {
-            echo "<pre>Route: {$url} ({$requestType})</pre>";
+            // echo "<pre>Route: {$url} ({$requestType})</pre>";
         }
 
         if (strpos($url, '/api') === 0) {
