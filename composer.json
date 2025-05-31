@@ -42,7 +42,12 @@
     ],
     "serve": "php warvil serve",
     "warvil": "php warvil",
-    "setup": "php bin/install"
+    "setup": "php bin/install",
+  "release": "php release.php",
+  "release:patch": "php release.php patch",
+  "release:minor": "php release.php minor",
+  "release:major": "php release.php major",
+  "release:help": "php release.php help"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
