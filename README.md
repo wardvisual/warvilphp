@@ -281,20 +281,6 @@ php warvil migration:run User:up
 ```sh
 # Generate an application key
 php warvil key:generate
-
-# Release new versions
-php warvil release           # General release command
-php warvil release:patch     # Release a patch version (0.1.0 → 0.1.1)
-php warvil release:minor     # Release a minor version (0.1.0 → 0.2.0)
-php warvil release:major     # Release a major version (0.1.0 → 1.0.0)
-php warvil release:help      # Show release command help
-```
-
-
-#### Utility Commands
-```sh
-# Generate an application key
-php warvil key:generate
 ```
 
 ## 🌐 Routing System
