@@ -40,7 +40,7 @@
     "post-install-cmd": [
       "php -r \"chmod('warvil', 0755);\""
     ],
-    "serve": "php -S localhost:8000",
+    "serve": "php warvil serve",
     "warvil": "php warvil",
     "setup": "php bin/install"
   },

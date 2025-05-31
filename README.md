@@ -7,14 +7,15 @@ A **lightweight PHP framework** inspired by Laravel, designed for developers who
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-v8.0+-blue.svg" alt="PHP Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
-  <img src="https://img.shields.io/badge/Status-Beta-orange.svg" alt="Status">
+  <img src="https://img.shields.io/badge/Status-Alpha-red.svg" alt="Status">
+  <img src="https://img.shields.io/badge/API-Unstable-orange.svg" alt="API Stability">
 </p>
-
-> **⚠️ Note:** WarvilPHP is currently under **active development**. While it's stable enough for many use cases, expect frequent updates and improvements.
 
 ## 📋 Table of Contents
 
 - [Introduction](#-introduction)
+- [Project Status](#-project-status)
+- [Roadmap to Production Readiness](#-roadmap-to-production-readiness)
 - [Features](#-features)
 - [Requirements](#-requirements)
 - [Installation](#-installation)
@@ -46,6 +47,64 @@ I wanted something that maintained the directness and flexibility of pure PHP wh
 After refining this structure across multiple projects, I realized that this middle-ground approach could benefit other developers who shared my appreciation for PHP's simplicity. WarvilPHP represents that balance - a framework that provides helpful structure and tools without getting in your way or forcing you into restrictive patterns.
 
 Today, I'm open-sourcing WarvilPHP to help developers who want to build PHP applications with a clean architecture but without sacrificing the power and directness that made us fall in love with PHP in the first place.
+
+
+## 🚦 Project Status
+
+> **⚠️ Development Status: Pre-release**
+> 
+> WarvilPHP is currently in **pre-release development stage**. While the framework includes many functional features, it is not yet recommended for production environments or critical applications.
+> 
+> Following semantic versioning standards:
+> - Current releases (v0.x.x) are considered development/alpha versions
+> - Future v1.0.0 will mark the first stable, production-ready release
+>
+> We encourage developers to explore WarvilPHP for personal projects, learning purposes, or non-critical applications. Your feedback during this phase is invaluable to the project's growth!
+
+## 🗺️ Roadmap to Production Readiness
+
+We're following semantic versioning (semver.org) with a clear path to a stable v1.0.0 release:
+
+- [x] **v0.1.0-alpha** (Current)
+  - Initial framework architecture
+  - Basic MVC implementation
+  - Routing system for web and API
+  - Command line interface
+  - Development server via `php warvil serve`
+  - View templating and components
+
+- [ ] **v0.2.0-alpha**
+  - Enhanced database ORM functionality
+  - Improved middleware system
+  - Extended validation capabilities
+  - File storage improvements
+  - Authentication scaffolding
+
+- [ ] **v0.5.0-beta**
+  - Complete test coverage for core components
+  - Performance optimization
+  - Security hardening
+  - Comprehensive error handling
+  - Extended documentation with examples
+
+- [ ] **v0.9.0-rc** (Release Candidate)
+  - Feature-complete implementation
+  - Production deployment guides
+  - API stabilization
+  - Backward compatibility guarantees
+
+- [ ] **v1.0.0** (Stable Release)
+  - Production-ready code
+  - Complete documentation
+  - Long-term support plan
+  - Community-tested in various environments
+
+After v1.0.0, we will strictly follow semantic versioning:
+- MAJOR version for incompatible API changes (v2.0.0)
+- MINOR version for backwards-compatible functionality (v1.1.0)
+- PATCH version for backwards-compatible bug fixes (v1.0.1)
+
+We welcome contributors to help us reach these milestones faster! See our [Contributing](#-contributing) section for details on how to get involved.
 
 ## ✨ Features
 
@@ -578,4 +637,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 WarvilPHP is open-sourced software licensed under the MIT license.
 
 
-<p align="center"> Made with ❤️ by <a href="https://github.com/wardvisual">WardVisual</a> </p> 
+<p align="center">
+  <small>WarvilPHP is under active development. While we strive for stability, use in production is at your own risk.</small>
+</p>
+<p align="center"> Made with ❤️ by <a href="https://github.com/wardvisual">WardVisual</a> </p>

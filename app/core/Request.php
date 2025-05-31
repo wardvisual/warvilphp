@@ -29,8 +29,9 @@ class Request
     {
         $inputs = array_merge($_POST, $_GET, $_FILES);
 
-        // Check if the content type is JSON
-        if (strpos($_SERVER["CONTENT_TYPE"], 'application/json') !== false) {
+        // Check if the content type is JSON (safely check if header exists)
+        $contentType = $_SERVER["CONTENT_TYPE"] ?? '';
+        if (!empty($contentType) && strpos($contentType, 'application/json') !== false) {
             $jsonData = json_decode(file_get_contents('php://input'), true);
             $inputs = array_merge($inputs, $jsonData ? $jsonData : []);
         }
