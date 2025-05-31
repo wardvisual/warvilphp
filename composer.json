@@ -2,7 +2,7 @@
   "name": "wardvisual/warvilphp",
   "description": "A lightweight PHP framework inspired by Laravel",
   "type": "project",
-  "version": "1.0.2",
+  "version": "0.1.0-alpha",
   "license": "MIT",
   "authors": [
     {

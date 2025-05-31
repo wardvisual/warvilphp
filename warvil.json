@@ -1,6 +1,6 @@
 {
   "name": "warvilphp",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha",
   "description": "WarvilPHP, A lightweight PHP framework",
   "author": "Wardvisual <wardvisual@gmail.com>",
   "keywords": ["php", "framework", "warvilPHP"],
