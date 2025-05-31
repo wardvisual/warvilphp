@@ -232,7 +232,17 @@ php warvil key:generate
 ## 🖥️ Command Line Interface
 WarvilPHP comes with a command-line tool called warvil for scaffolding components:
 
-Available Commands
+#### Development
+```sh
+# Start development server
+php warvil serve
+# OR with custom host and port
+php warvil serve localhost 3000
+
+# Show help
+php warvil help
+```
+#### Generator Commands
 ```sh
 # Create a controller
 php warvil make:controller UserController
@@ -261,14 +271,30 @@ php warvil make:layout admin
 # Create a database table schema
 php warvil make:table Users
 
-# Run a migration
+```
+#### Database Commands
+```sh
 php warvil migration:run User:up
+```
 
+#### Utility Commands
+```sh
 # Generate an application key
 php warvil key:generate
 
-# Show help
-php warvil help
+# Release new versions
+php warvil release           # General release command
+php warvil release:patch     # Release a patch version (0.1.0 → 0.1.1)
+php warvil release:minor     # Release a minor version (0.1.0 → 0.2.0)
+php warvil release:major     # Release a major version (0.1.0 → 1.0.0)
+php warvil release:help      # Show release command help
+```
+
+
+#### Utility Commands
+```sh
+# Generate an application key
+php warvil key:generate
 ```
 
 ## 🌐 Routing System
