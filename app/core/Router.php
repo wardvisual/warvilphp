@@ -15,19 +15,19 @@ class Router
     private static function formatUrl($url)
     {
         self::$isRouteTriggered = true;
+        // Ensure consistent URL formatting
+        $url = '/' . trim($url, '/');
+        if ($url !== '/') {
+            $url .= '/';
+        }
 
-        return rtrim($url, '/') . '/';
+        return $url;
     }
 
     public static function get($url, $controller, $method)
     {
-        if ($url === '/') {
-            $url = '';
-        } else {
-            $url = self::formatUrl($url);
-        }
+        $url = self::formatUrl($url);
         self::$routes['GET'][$url] = ['controller' => $controller, 'method' => $method];
-
         return new static;
     }
 
@@ -35,7 +35,6 @@ class Router
     {
         $url = self::formatUrl($url);
         self::$routes['POST'][$url] = ['controller' => $controller, 'method' => $method];
-
         return new static;
     }
 
@@ -110,6 +109,11 @@ class Router
             $request = new Request();
             $request->capture();
 
+            // Normalize URL format for matching with routes
+            $url = '/' . trim($url, '/');
+            if ($url !== '/') {
+                $url .= '/';
+            }
 
             $url = self::matchRoute($url, $requestType);
 
