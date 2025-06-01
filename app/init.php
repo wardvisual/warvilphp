@@ -1,44 +1,25 @@
 <?php
-// filepath: c:\xampp\htdocs\warvilphp\app\init.php
+session_start();
 
 require_once 'core/utils/Loader.php';
 
+use app\core\Session;
 use app\core\utils\Loader;
 
-// Allow cross-origin requests from any origin
-header('Access-Control-Allow-Origin: *');
-// Allow only specified methods for cross-origin requests
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-// Allow the Content-Type header for cross-origin requests
-header('Access-Control-Allow-Headers: Content-Type');
-
 spl_autoload_register(function ($class_name) {
-    $core = ['App', 'Router', 'RouterApi', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage', 'Env'];
-    $coreUtils = ['Loader', 'Helpers', 'DateHelper', 'UrlHelper', 'Redirect', 'Session'];
+    $core = ['App', 'Router', 'RouterApi', 'Controller', 'Model', 'Response', 'Request', 'Database', 'Config', 'Layout', 'Storage', 'Session'];
+    $coreUtils = ['Loader', 'Helpers', 'DateHelper', 'UrlHelper', 'Factory', 'Pagination', 'Hash', 'Password', 'Toaster'];
     $traits = ['Product'];
 
-    // Load route files - ensure they exist first
-    $routeFiles = ['web', 'api'];
-    foreach ($routeFiles as $route) {
-        $routePath = 'app/routes/' . $route . '.php';
-        if (file_exists($routePath)) {
-            require_once $routePath;
-        } else {
-            if (!is_dir('app/routes')) {
-                mkdir('app/routes', 0755, true);
-            }
-            
-            // Create a default route file
-            if ($route === 'web') {
-                $content = "<?php\n\nuse app\core\{Router};\n\nRouter::get('/', 'WelcomeController', 'index');\n";
-                file_put_contents($routePath, $content);
-                require_once $routePath;
-            } else if ($route === 'api') {
-                $content = "<?php\n\nuse app\core\{RouterApi};\n\n// API Routes\n";
-                file_put_contents($routePath, $content);
-                require_once $routePath;
-            }
-        }
+    $routes = ['web', 'api'];
+
+    // Load all classes in core/utils folder
+    foreach ($coreUtils as $class) {
+        Loader::load('app/core/utils', $class);
+    }
+
+    foreach ($routes as $route) {
+        Loader::load('app/routes/', $route);
     }
 
     foreach ($traits as $trait) {
@@ -48,8 +29,42 @@ spl_autoload_register(function ($class_name) {
     foreach ($core as $class) {
         Loader::load('app/core/', $class);
     }
+    // end of all classes in core/utils folder
 
-    foreach ($coreUtils as $class) {
-        Loader::load('app/core/utils/', $class);
+    // classes that needs to load separately
+    $model = 'app/models/' . getClassName($class_name) . '.php';
+    $helper = 'app/core/utils/' . $class_name . '.php';
+    $core = 'app/core/' . $class_name . '.php';
+    $controller = 'app/controllers/' . getClassName($class_name) . '.php';
+    $middleware = 'app/middlewares/' . getClassName($class_name) . '.php';
+
+    if (file_exists($model)) {
+        require_once $model;
+    }
+
+    if (file_exists($helper)) {
+        Loader::load('app/core/utils/', $class_name);
+    }
+
+    if (file_exists($core)) {
+        Loader::load('app/core/', $class_name);
+    }
+
+    if (file_exists($middleware)) {
+        Loader::load('app/middleware/', getClassName($class_name));
+    }
+
+    if (file_exists($controller)) {
+        Loader::load('app/controllers/', getClassName($class_name));
     }
 });
+
+
+// save inputs in session
+$excludeFields = ['password', 'password_confirmation'];
+
+foreach ($_POST as $key => $value) {
+    if (!in_array($key, $excludeFields)) {
+        Session::put('old/' . $key, $value);
+    }
+}
