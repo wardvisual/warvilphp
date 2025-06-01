@@ -239,5 +239,62 @@ EOT;
     echo "{$yellow}Run 'php warvil serve' to see your new welcome page.{$reset}\n";
 }
 
-// Run the installer
-installWelcomePage();
+// Main installation function
+function installFramework()
+{
+    $green = "\033[0;32m";
+    $yellow = "\033[1;33m";
+    $purple = "\033[0;35m";
+    $reset = "\033[0m";
+
+    echo "{$purple}
+╦ ╦┌─┐┬─┐┬  ┬┬┬  ╔═╗╦ ╦╔═╗
+║║║├─┤├┬┘└┐┌┘││  ╠═╝╠═╣╠═╝
+╚╩╝┴ ┴┴└─ └┘ ┴┴─┘╩  ╩ ╩╩   
+    {$reset}\n";
+
+    echo "{$green}Installing WarvilPHP Framework{$reset}\n\n";
+
+    // Create base directories
+    $directories = [
+        'app/controllers',
+        'app/models',
+        'app/views',
+        'app/shared/layouts',
+        'app/shared/components',
+        'public/assets',
+        'public/uploads'
+    ];
+
+    foreach ($directories as $dir) {
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+            echo "{$green}✓{$reset} Created directory: $dir\n";
+        }
+    }
+
+    // Generate application key
+    if (file_exists('cli/key.php')) {
+        require_once 'cli/key.php';
+        if (function_exists('generateAppKey')) {
+            generateAppKey();
+        }
+    }
+
+    // Set file permissions
+    chmod('warvil', 0755);
+    if (file_exists('warvil.bat')) {
+        chmod('warvil.bat', 0755);
+    }
+
+    // Install welcome page
+    installWelcomePage();
+
+    echo "\n{$green}Installation completed!{$reset}\n";
+    echo "{$yellow}Run 'php warvil serve' to start the development server.{$reset}\n";
+}
+
+// ... existing welcome page installation code ...
+
+// Run the installation
+installFramework();
