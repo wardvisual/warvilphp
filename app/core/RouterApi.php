@@ -19,6 +19,35 @@ class RouterApi
         self::$routes['POST'][$url] = ['controller' => $controller, 'method' => $method];
     }
 
+    public static function delete($url, $controller, $method)
+    {
+        $url = '/api' . $url;
+        self::$routes['DELETE'][$url] = ['controller' => $controller, 'method' => $method];
+    }
+
+    public static function put($url, $controller, $method)
+    {
+        $url = '/api' . $url;
+        self::$routes['PUT'][$url] = ['controller' => $controller, 'method' => $method];
+    }
+
+    // todo: add group method and middleware
+    public static function group($prefix, $routes)
+    {
+        foreach ($routes as $route) {
+            $url = $prefix . $route['url'];
+            $requestType = $route['requestType'];
+            $controller = $route['controller'];
+            $method = $route['method'];
+
+            if (!in_array($requestType, ['GET', 'POST'])) {
+                throw new \Exception('Invalid request type: ' . $requestType);
+            }
+
+            self::$routes[$requestType][$url] = ['controller' => $controller, 'method' => $method];
+        }
+    }
+
     // Add other methods (put, delete) as needed
     public static function dispatch($url, $requestType)
     {
