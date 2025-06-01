@@ -46,7 +46,7 @@ I wanted something that maintained the directness and flexibility of pure PHP wh
 
 After refining this structure across multiple projects, I realized that this middle-ground approach could benefit other developers who shared my appreciation for PHP's simplicity. WarvilPHP represents that balance - a framework that provides helpful structure and tools without getting in your way or forcing you into restrictive patterns.
 
-Today, I'm open-sourcing WarvilPHP to help developers who want to build PHP applications with a clean architecture but without sacrificing the power and directness that made us fall in love with PHP in the first place.
+This framework is now open source, I'm open-sourcing WarvilPHP to help developers who want to build PHP applications with a clean architecture but without sacrificing the power and directness that made us fall in love with PHP in the first place.
 
 
 ## 🚦 Project Status
